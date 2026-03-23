@@ -66,7 +66,7 @@
         .btn-prev { background-color: #bbb; color: #333; }
         .btn-submit { background-color: var(--error); color: white; }
 
-        /* Admin link on welcome screen - image_3c650b.png */
+        /* Admin link on welcome screen */
         .admin-link-container { text-align: center; margin-top: 25px; }
         .admin-link { cursor: pointer; color: #aaa; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; padding: 10px; display: inline-block; text-decoration: none; }
         .admin-link:hover { color: var(--secondary); }
@@ -128,7 +128,7 @@
         .wrong-ans { color: var(--error); font-weight: bold; }
         .correct-ans { color: var(--success); font-weight: bold; }
 
-        /* Modals & Backdrop */
+        /* Centered Modals */
         #review-modal, #modal-admin-login, #custom-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
@@ -136,7 +136,7 @@
         }
         .modal-content { 
             background: white; padding: 30px; border-radius: 15px; 
-            max-width: 480px; width: 100%; max-height: 90vh; 
+            max-width: 450px; width: 100%; max-height: 90vh; 
             overflow-y: auto; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.4); 
             animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -230,6 +230,7 @@
                     </select>
                 </div>
                 <button class="btn btn-next btn-sm" id="btn-admin-refresh" style="background:#007bff; color:white;">Làm mới</button>
+                <button class="btn btn-sm" id="btn-export-excel" style="background:#28a745; color:white;">Xuất Excel</button>
                 <button class="btn btn-prev btn-sm" style="width: 120px;" onclick="location.reload()">Thoát Quản Trị</button>
             </div>
             <div id="admin-results-content" class="admin-table-wrapper">
@@ -326,9 +327,9 @@
             { id: 3.15, level: "Thông hiểu", question: "Bình 1 đầy nước, bình 2 nửa nước đặt cùng độ cao. So sánh thế năng?", options: ["Bình 1 > Bình 2.", "Bình 2 > Bình 1.", "Bằng nhau.", "Bằng không."], correct: 0, explanation: "<b>Giải thích:</b> Bình 1 nặng hơn nên thế năng lớn hơn (cùng $h$)." },
             { id: 3.16, level: "Thông hiểu", question: "Vật chuyển động trên mặt đất (chọn đất làm mốc) thì cơ năng", options: ["bằng động năng.", "bằng thế năng.", "bằng không.", "nhỏ hơn động năng."], correct: 0, explanation: "<b>Giải thích:</b> $h = 0 \Rightarrow W_t = 0 \Rightarrow W = W_đ$." },
             { id: 3.17, level: "Vận dụng", question: "Một VĐV khối lượng 70 kg đang chạy tốc độ 4 m/s. Động năng là", options: ["280 J.", "140 J.", "560 J.", "1120 J."], correct: 2, explanation: "<b>Lời giải:</b> $W_đ = 0,5 \cdot 70 \cdot 4^2 = 560$ J." },
-            { id: 3.18, level: "Vận dụng", question: "Một hòn đá trọng lượng 20 N ở cao 3 m. Thế năng là", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "<b>Lời giải:</b> $W_t = 20 \cdot 3 = 60$ J." },
-            { id: 3.19, level: "Vận dụng", question: "Xe nặng 2 kg có động năng 16 J. Tốc độ xe là", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "<b>Lời giải:</b> $16 = 0,5 \cdot 2 \cdot v^2 \Rightarrow v^2 = 16 \Rightarrow v = 4$ m/s." },
-            { id: 3.20, level: "Vận dụng", question: "Vật 1 kg có thế năng 50 J. Biết g=10. Độ cao h là", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "<b>Tính toán:</b> $P = 10 \cdot 1 = 10$ N. $h = 50 / 10 = 5$ m." },
+            { id: 3.18, level: "Vận dụng", question: "Một hòn đá trọng lượng 20 N được đưa lên độ cao 3 m so với mốc thế năng. Thế năng của hòn đá là", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "<b>Lời giải:</b> $W_t = 20 \cdot 3 = 60$ J." },
+            { id: 3.19, level: "Vận dụng", question: "Một chiếc xe điện đồ chơi nặng 2 kg có động năng 16 J. Tốc độ của xe là", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "<b>Lời giải:</b> Ta có $16 = 0,5 \cdot 2 \cdot v^2 \Rightarrow v^2 = 16 \Rightarrow v = 4$ m/s." },
+            { id: 3.20, level: "Vận dụng", question: "Một vật có khối lượng 1 kg có thế năng trọng trường là 50 J. Biết g=10. Độ cao h là", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "<b>Tính toán:</b> $P = 10 \cdot 1 = 10$ N. $h = 50 / 10 = 5$ m." },
             { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g bay 2 m/s ở cao 1,5 m. P=5N. Cơ năng là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "<b>Tính toán:</b> $W_đ=1$ J, $W_t=7,5$ J $\Rightarrow W=8,5$ J." },
             { id: 3.22, level: "Vận dụng", question: "Thả bóng từ cao xuống, năng lượng chuyển hóa thế nào?", options: ["Động sang thế.", "Thế sang động.", "Nhiệt sang cơ.", "Cơ sang hóa."], correct: 1, explanation: "<b>Giải thích:</b> Rơi xuống $\Rightarrow h$ giảm, $v$ tăng $\Rightarrow$ thế năng chuyển thành động năng." },
             { id: 3.23, level: "Vận dụng", question: "Đạp xe lên dốc chậm dần. Khi đó", options: ["Động giảm, thế tăng.", "Động tăng, thế giảm.", "Cùng tăng.", "Cùng giảm."], correct: 0, explanation: "<b>Giải thích:</b> Lên cao $h$ tăng, đi chậm $v$ giảm." },
@@ -336,35 +337,37 @@
         ],
         truefalse: [
             { id: 3.25, level: "Biết-Hiểu", context: "Bạn nhỏ chơi xích đu từ cao nhất về thấp nhất.", statements: ["Tại vị trí cao nhất thế năng lớn nhất.", "Xuống thấp thế năng giảm, động năng tăng.", "Tại thấp nhất cơ năng bằng không.", "Thế năng chỉ phụ thuộc khối lượng."], pattern: [true, true, false, false], explanations: ["a) Đúng ($h$ max).", "b) Đúng (chuyển hóa).", "c) Sai (vẫn có động năng).", "d) Sai (phụ thuộc cả h)."] },
-            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4 kg đang chuyển động ngang với tốc độ 3 m/s.", statements: ["Động năng của vật có giá trị là 18 J.", "Vì vật chuyển động trên mặt sàn nên cơ năng luôn bằng không.", "Nếu tốc độ gấp đôi thì động năng gấp bốn.", "Công thức tính động năng là $W_đ = 0,5mv^2$."], pattern: [true, false, true, true], explanations: ["a) Đúng ($0,5 \cdot 4 \cdot 9$).", "b) Sai (W > 0).", "c) Đúng ($v^2$).", "d) Đúng."] },
-            { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200 g (P=2N) ở cao 3 m đứng yên.", statements: ["Thế năng là 6 J.", "Cơ năng bằng không.", "Nếu rơi (không ma sát) cơ năng bảo toàn.", "Càng rơi thấp thế năng càng tăng."], pattern: [true, false, true, false], explanations: ["a) Đúng.", "b) Sai (có Wt).", "c) Đúng.", "d) Sai (h giảm)."] },
+            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4 kg đang chuyển động ngang với tốc độ 3 m/s.", statements: ["Động năng của vật có giá trị là 18 J.", "Vì vật chuyển động trên mặt sàn nên cơ năng luôn bằng không.", "Nếu tốc độ của vật tăng lên gấp đôi thì động năng gấp bốn.", "Công thức tính động năng là $W_đ = 0,5mv^2$."], pattern: [true, false, true, true], explanations: ["a) Đúng ($0,5 \cdot 4 \cdot 9$).", "b) Sai (W > 0).", "c) Đúng ($v^2$).", "d) Đúng."] },
+            { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200 g (P=2N) ở cao 3 m đứng yên.", statements: ["Thế năng là 6 J.", "Cơ năng của táo bằng không.", "Nếu rơi (không ma sát) cơ năng bảo toàn.", "Càng rơi thấp thế năng càng tăng."], pattern: [true, false, true, false], explanations: ["a) Đúng.", "b) Sai (có Wt).", "c) Đúng.", "d) Sai (h giảm)."] },
             { id: 3.28, level: "Biết-Vận dụng", context: "VĐV 600 N ở bục nhảy cao 10 m.", statements: ["Thế năng của người là 6000 J.", "Tại mặt nước thế năng là 600 J.", "Công thức thế năng là $W_t = Ph$.", "Đứng yên động năng là 6000 J."], pattern: [true, false, true, false], explanations: ["a) Đúng.", "b) Sai (h=0).", "c) Đúng.", "d) Sai (v=0)."] }
         ],
         short: [
-            { id: 3.33, level: "Vận dụng", question: "Vật 5 kg chạy 4 m/s. Động năng là bao nhiêu Joule?", answer: "40", explanation: "<b>Lời giải:</b> $W_đ = 0,5 \cdot 5 \cdot 16 = 40$ J." },
-            { id: 3.34, level: "Vận dụng", question: "Vật 150 N ở cao 2 m. Thế năng là bao nhiêu Joule?", answer: "300", explanation: "<b>Lời giải:</b> $W_t = 150 \cdot 2 = 300$ J." },
+            { id: 3.33, level: "Vận dụng", question: "Vật 5 kg chạy 4 m/s. Động năng là bao nhiêu Joule?", answer: "40", explanation: "<b>Lời giải:</b> $0,5 \cdot 5 \cdot 16 = 40$ J." },
+            { id: 3.34, level: "Vận dụng", question: "Vật 150 N ở cao 2 m. Thế năng là bao nhiêu Joule?", answer: "300", explanation: "<b>Lời giải:</b> $150 \cdot 2 = 300$ J." },
             { id: 3.35, level: "Vận dụng", question: "Wđ = 25 J, Wt = 45 J. Cơ năng là bao nhiêu Joule?", answer: "70", explanation: "<b>Lời giải:</b> $W = 25 + 45 = 70$ J." },
-            { id: 3.37, level: "Hiểu", question: "Nhận định đúng:\n1.Wt tỉ lệ thuận m.\n2.v tăng Wđ luôn tăng.\n3.Wđ có thể âm.\n4.Wt phụ thuộc mốc.\n5.Đơn vị W là N.\n6.Trên đất cơ năng luôn 0.\n7.Rơi: Wt sang Wđ.\n8.W=Wđ+Wt.\nDãy số đúng tăng dần?", answer: "1478", explanation: "<b>Lời giải:</b> Ý 1, 4, 7, 8 đúng." }
+            { id: 3.36, level: "Vận dụng", question: "Một quả bóng khối lượng 0,2 kg bay với tốc độ 10 m/s. Động năng là bao nhiêu Joule?", answer: "10", explanation: "<b>Lời giải:</b> $0,5 \cdot 0,2 \cdot 100 = 10$ J." },
+            { id: 3.37, level: "Hiểu", question: "Nhận định đúng:\n1.Wt tỉ lệ thuận m.\n2.v tăng Wđ luôn tăng.\n3.Wđ có thể âm.\n4.Wt phụ thuộc mốc.\n5.Đơn vị W là N.\n6.Trên đất cơ năng luôn 0.\n7.Rơi: Wt sang Wđ.\n8.W=Wđ+Wt.\nDãy số đúng tăng dần?", answer: "1478", explanation: "<b>Lời giải:</b> Ý 1, 4, 7, 8 đúng." },
+            { id: 3.38, level: "Vận dụng", question: "Vật trọng lượng 20 N có thế năng 160 J. h = ? mét.", answer: "8", explanation: "<b>Lời giải:</b> $h = 160 / 20 = 8$ m." },
+            { id: 3.39, level: "Vận dụng", question: "Vật 60 kg chạy 5 m/s. Động năng là bao nhiêu Joule?", answer: "750", explanation: "<b>Lời giải:</b> $0,5 \cdot 60 \cdot 25 = 750$ J." },
+            { id: 3.40, level: "Vận dụng", question: "Cơ năng 100J. Thế năng tại nơi Wđ=4Wt là bao nhiêu Joule?", answer: "20", explanation: "<b>Lời giải:</b> $W = 5W_t \Rightarrow W_t = 20$ J." }
         ]
     };
 
-    // --- GAME ENGINE ---
+    // --- LOGIC ENGINE ---
     const showModal = (t, b) => { document.getElementById('modal-title').innerText = t; document.getElementById('modal-body').innerText = b; document.getElementById('custom-modal').style.display = 'flex'; };
     const closeModal = () => document.getElementById('custom-modal').style.display = 'none';
     const playSound = (t) => { try { document.getElementById('sound-'+t).play(); } catch(e) {} };
 
     const startApp = async (mode) => {
-        const user = {
-            sbd: document.getElementById('input-sbd').value.trim(),
-            name: document.getElementById('input-name').value.trim(),
-            class: document.getElementById('input-class').value.trim(),
-            school: document.getElementById('input-school').value.trim()
-        };
-        if(!user.name || !user.sbd) { showModal("LỖI NHẬP LIỆU", "Vui lòng nhập đủ Họ tên và SBD!"); return; }
+        const name = document.getElementById('input-name').value.trim();
+        const sbd = document.getElementById('input-sbd').value.trim();
+        if(!name || !sbd) { showModal("LỖI", "Vui lòng nhập đầy đủ thông tin!"); return; }
         
         try { await signInAnonymously(auth); } catch(e) {}
 
+        const user = { sbd, name, class: document.getElementById('input-class').value, school: document.getElementById('input-school').value };
         localStorage.setItem('quiz_user', JSON.stringify(user));
+        
         gameMode = mode; isFinished = false; isSavingLock = false;
         quizStartTime = Date.now();
         currentQuestions = generateQuizSet();
@@ -379,7 +382,7 @@
         // Phát nhạc nhac-nen.mp3
         const m = document.getElementById('bg-music');
         m.volume = 0.4;
-        m.play().catch(() => console.log("Bạn cần đặt file nhac-nen.mp3 vào cùng thư mục."));
+        m.play().catch(() => {});
 
         renderQuestion();
         startTimer();
@@ -502,7 +505,7 @@
     };
 
     const renderHistory = (qs, as, containerId) => {
-        let h = '<h3 style="margin-top:20px; color:var(--primary)">CHI TIẾT GIẢI THÍCH (100% COVERAGE):</h3>';
+        let h = '<h3 style="margin-top:20px; color:var(--primary)">GIẢI THÍCH CHI TIẾT (100% COVERAGE):</h3>';
         qs.forEach((q, i) => {
             const ua = as[i];
             h += `<div class="history-item"><span class="history-item-q">Câu ${i+1}: ${q.question || q.context}</span>`;
@@ -558,6 +561,30 @@
         document.getElementById('admin-results-content').innerHTML = data.length ? h + '</tbody></table>' : '<p style="padding:20px; text-align:center;">Trống.</p>';
     };
 
+    window.exportToExcel = () => {
+        if (!allRecords.length) return alert("Không có dữ liệu để xuất!");
+        const sort = document.getElementById('admin-sort').value;
+        const filter = document.getElementById('admin-filter-class').value;
+        let data = filter === 'all' ? [...allRecords] : allRecords.filter(r => r.class === filter);
+        
+        let csvContent = "\uFEFF";
+        csvContent += "Hạng,SBD,Lớp,Họ và Tên,Trường,Điểm,Thời gian làm (s),Ngày nộp\n";
+        
+        data.forEach((r, i) => {
+            const dt = r.timestamp ? new Date(r.timestamp.seconds * 1000).toLocaleString('vi-VN').replace(/,/g, '') : 'N/A';
+            csvContent += `${i+1},${r.sbd},${r.class},"${r.name}","${r.school||''}",${r.score.toFixed(2)},${r.duration},${dt}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `Ket_qua_Co_nang_${filter}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     window.viewRec = (id) => {
         const r = allRecords.find(x => x.id === id); if(!r) return;
         const d = JSON.parse(r.details);
@@ -571,10 +598,13 @@
     // --- SETUP HANDLERS ---
     document.getElementById('btn-practice').onclick = () => startApp('practice');
     document.getElementById('btn-exam').onclick = () => startApp('exam');
-    document.getElementById('btn-close-modal').onclick = closeModal;
-    document.getElementById('btn-open-admin').onclick = () => document.getElementById('modal-admin-login').style.display = 'flex';
+    document.getElementById('btn-export-excel').onclick = window.exportToExcel;
+    document.getElementById('btn-open-admin').onclick = () => {
+        document.getElementById('modal-admin-login').style.display = 'flex';
+        document.getElementById('admin-password').focus();
+    };
     document.getElementById('btn-admin-login-confirm').onclick = () => {
-        if(document.getElementById('admin-password').value === 'anhnhandeptrai123') {
+        if(document.getElementById('admin-password').value === 'anhnhandeptrai123@') {
             document.getElementById('modal-admin-login').style.display = 'none';
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-admin').classList.add('active');
