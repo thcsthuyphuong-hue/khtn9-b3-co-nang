@@ -136,7 +136,7 @@
         }
         .modal-content { 
             background: white; padding: 30px; border-radius: 15px; 
-            max-width: 450px; width: 100%; max-height: 90vh; 
+            max-width: 480px; width: 100%; max-height: 90vh; 
             overflow-y: auto; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.4); 
             animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -176,7 +176,7 @@
                 <button class="btn btn-practice" id="btn-practice">LUYỆN TẬP</button>
                 <button class="btn btn-exam" id="btn-exam">LÀM BÀI KIỂM TRA</button>
             </div>
-            <!-- Admin access point as requested -->
+            <!-- Admin access point -->
             <div class="admin-link-container">
                 <span class="admin-link" id="btn-open-admin">ADMIN</span>
             </div>
@@ -279,7 +279,7 @@
     import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // --- Cấu hình Firebase mới nhất bạn cung cấp ---
+    // --- Cấu hình Firebase ---
     const firebaseConfig = {
         apiKey: "AIzaSyDg4Q6rsrvPhY31oCpL4DAAjTKlgjJN1c0",
         authDomain: "khtn9-5c1f4.firebaseapp.com",
@@ -307,11 +307,11 @@
     let isSavingLock = false;
     let allRecords = [];
 
-    // --- NGÂN HÀNG CÂU HỎI (40 CÂU, 100% GIẢI THÍCH CHI TIẾT) ---
+    // --- NGÂN HÀNG CÂU HỎI (40 CÂU) ---
     const BANK = {
         mcq: [
             { id: 3.1, level: "Nhận biết", question: "Đại lượng nào sau đây được định nghĩa là tổng động năng và thế năng của một vật?", options: ["Cơ năng.", "Công cơ học.", "Nhiệt năng.", "Công suất."], correct: 0, explanation: "<b>Tại sao đúng:</b> Theo định nghĩa SGK KHTN 9, cơ năng ($W$) là tổng của động năng ($W_đ$) và thế năng ($W_t$). Biểu thức: $W = W_đ + W_t$.<br><b>Các ý khác:</b> B sai vì Công $A=F.s$; C sai vì Nhiệt năng là nội năng; D sai vì Công suất là tốc độ thực hiện công." },
-            { id: 3.2, level: "Nhận biết", question: "Công thức tính động năng của một vật có khối lượng $m$ đang chuyển động với tốc độ $v$ là", options: ["$W_đ = mv^2$.", "$W_đ = \\frac{1}{2}mv^2$.", "$W_đ = \\frac{1}{2}mv$.", "$W_đ = 2mv^2$."], correct: 1, explanation: "<b>Tại sao đúng:</b> Động năng được tính bằng biểu thức chuẩn $W_đ = \\frac{1}{2}mv^2$.<br><b>Các ý khác:</b> Thiếu hệ số $1/2$ hoặc thiếu bình phương $v$." },
+            { id: 3.2, level: "Nhận biết", question: "Công thức tính động năng của một vật có khối lượng $m$ đang chuyển động với tốc độ $v$ là", options: ["$W_đ = mv^2$.", "$W_đ = \\frac{1}{2}mv^2$.", "$W_đ = \\frac{1}{2}mv$.", "$W_đ = 2mv^2$."], correct: 1, explanation: "<b>Tại sao đúng:</b> Động năng được tính bằng biểu thức chuẩn $W_đ = \\frac{1}{2}mv^2$." },
             { id: 3.3, level: "Nhận biết", question: "Một vật có trọng lượng $P$ đang ở độ cao $h$ so với mốc tính thế năng. Thế năng trọng trường $W_t$ của vật được tính theo công thức", options: ["$W_t = \\frac{1}{2}Ph$.", "$W_t = P + h$.", "$W_t = Ph$.", "$W_t = \\frac{P}{h}$."], correct: 2, explanation: "<b>Tại sao đúng:</b> Thế năng trọng trường tỉ lệ thuận với trọng lượng $P$ và độ cao $h$: $W_t = Ph$." },
             { id: 3.4, level: "Nhận biết", question: "Đơn vị của cơ năng, động năng và thế năng trong hệ SI là", options: ["joule (J).", "newton (N).", "watt (W).", "pascal (Pa)."], correct: 0, explanation: "<b>Tại sao đúng:</b> Joule (J) là đơn vị đo năng lượng chính thức trong hệ SI." },
             { id: 3.5, level: "Nhận biết", question: "Trong công thức $W_đ = \\frac{1}{2}mv^2$, đại lượng $v$ đại diện cho", options: ["thời gian.", "quãng đường.", "tốc độ.", "gia tốc."], correct: 2, explanation: "<b>Tại sao đúng:</b> Trong vật lí học cơ bản, $v$ là kí hiệu của tốc độ (vận tốc)." },
@@ -319,7 +319,7 @@
             { id: 3.7, level: "Nhận biết", question: "Một vật có khối lượng $m$ đang chuyển động, nếu vật dừng lại thì động năng sẽ", options: ["bằng không.", "không đổi.", "tăng lên.", "âm."], correct: 0, explanation: "<b>Tại sao đúng:</b> Dừng lại nghĩa là tốc độ $v = 0 \Rightarrow W_đ = 0$." },
             { id: 3.8, level: "Nhận biết", question: "Trong công thức $W_t = Ph$, đại lượng $h$ là", options: ["khối lượng.", "tốc độ.", "độ cao so với mốc.", "trọng lượng."], correct: 2, explanation: "<b>Tại sao đúng:</b> $h$ là độ cao thẳng đứng tính từ mốc thế năng đến vật." },
             { id: 3.9, level: "Thông hiểu", question: "Nếu giữ nguyên độ cao nhưng tăng khối lượng vật lên 3 lần thì thế năng trọng trường sẽ", options: ["giảm 3 lần.", "không đổi.", "tăng 3 lần.", "tăng 9 lần."], correct: 2, explanation: "<b>Giải thích:</b> $W_t = mgh$. Khi $g$ và $h$ không đổi, $W_t \propto m$. $m$ tăng 3 $\Rightarrow W_t$ tăng 3." },
-            { id: 3.10, level: "Thông hiểu", question: "Hai vật bằng khối lượng, vật A ở 5m, vật B ở 10m. Nhận định nào ĐÚNG?", options: ["$W_{tA} > W_{tB}$.", "$W_{tB} > W_{tA}$.", "$W_{tA} = W_{tB}$.", "Không so sánh được."], correct: 1, explanation: "<b>Giải thích:</b> Cùng khối lượng, vật ở cao hơn có thế năng lớn hơn (10m > 5m)." },
+            { id: 3.10, level: "Thông hiểu", question: "Hai vật bằng khối lượng, vật A ở 5m, vật B ở 10m. Nhận định nào ĐÚNG?", options: ["$W_{tA} > W_{tB}$.", "$W_{tB} > W_{tA}$.", "$W_{tA} = W_{tB}$.", "Không so sánh được."], correct: 1, explanation: "<b>Giải thích:</b> Cùng m, vật ở cao hơn có thế năng lớn hơn (10m > 5m)." },
             { id: 3.11, level: "Thông hiểu", question: "Quả mít rơi từ trên cây xuống đất, thế năng trọng trường của quả mít sẽ", options: ["giảm dần.", "tăng dần.", "không đổi.", "bằng không."], correct: 0, explanation: "<b>Giải thích:</b> Rơi xuống $\Rightarrow h$ giảm dần $\Rightarrow W_t = Ph$ giảm dần." },
             { id: 3.12, level: "Thông hiểu", question: "Máy bay bay ngang ở độ cao không đổi, nếu thả bớt hàng hóa thì thế năng trọng trường sẽ", options: ["tăng.", "giảm.", "không đổi.", "bằng không."], correct: 1, explanation: "<b>Giải thích:</b> Thả hàng $\Rightarrow m$ máy bay giảm $\Rightarrow W_t = mgh$ giảm." },
             { id: 3.13, level: "Thông hiểu", question: "Yếu tố nào KHÔNG làm thay đổi thế năng trọng trường?", options: ["Khối lượng.", "Độ cao.", "Tốc độ.", "Vị trí mốc."], correct: 2, explanation: "<b>Giải thích:</b> Công thức $W_t = mgh$ không chứa tốc độ $v$." },
@@ -333,7 +333,7 @@
             { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g bay 2 m/s ở cao 1,5 m. P=5N. Cơ năng là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "<b>Tính toán:</b> $W_đ=1$ J, $W_t=7,5$ J $\Rightarrow W=8,5$ J." },
             { id: 3.22, level: "Vận dụng", question: "Thả bóng từ cao xuống, năng lượng chuyển hóa thế nào?", options: ["Động sang thế.", "Thế sang động.", "Nhiệt sang cơ.", "Cơ sang hóa."], correct: 1, explanation: "<b>Giải thích:</b> Rơi xuống $\Rightarrow h$ giảm, $v$ tăng $\Rightarrow$ thế năng chuyển thành động năng." },
             { id: 3.23, level: "Vận dụng", question: "Đạp xe lên dốc chậm dần. Khi đó", options: ["Động giảm, thế tăng.", "Động tăng, thế giảm.", "Cùng tăng.", "Cùng giảm."], correct: 0, explanation: "<b>Giải thích:</b> Lên cao $h$ tăng, đi chậm $v$ giảm." },
-            { id: 3.24, level: "Vận dụng", question: "Tại sao đập thủy điện xây rất cao?", options: ["Để nước chảy đẹp.", "Tạo thế năng lớn quay tuabin.", "Nuôi cá.", "Tiết kiệm đất."], correct: 1, explanation: "<b>Giải thích:</b> Độ cao lớn tạo thế năng cực lớn để phát điện hiệu quả." }
+            { id: 3.24, level: "Vận dụng", question: "Tại sao đập thủy điện xây rất cao?", options: ["Cho đẹp.", "Tạo thế năng lớn quay tuabin.", "Nuôi cá.", "Tiết kiệm đất."], correct: 1, explanation: "<b>Giải thích:</b> Hồ ở cao tích thế năng lớn phát điện mạnh." }
         ],
         truefalse: [
             { id: 3.25, level: "Biết-Hiểu", context: "Bạn nhỏ chơi xích đu từ cao nhất về thấp nhất.", statements: ["Tại vị trí cao nhất thế năng lớn nhất.", "Xuống thấp thế năng giảm, động năng tăng.", "Tại thấp nhất cơ năng bằng không.", "Thế năng chỉ phụ thuộc khối lượng."], pattern: [true, true, false, false], explanations: ["a) Đúng ($h$ max).", "b) Đúng (chuyển hóa).", "c) Sai (vẫn có động năng).", "d) Sai (phụ thuộc cả h)."] },
@@ -361,7 +361,7 @@
     const startApp = async (mode) => {
         const name = document.getElementById('input-name').value.trim();
         const sbd = document.getElementById('input-sbd').value.trim();
-        if(!name || !sbd) { showModal("LỖI", "Vui lòng nhập đầy đủ thông tin!"); return; }
+        if(!name || !sbd) { showModal("LỖI", "Vui lòng nhập đủ thông tin!"); return; }
         
         try { await signInAnonymously(auth); } catch(e) {}
 
@@ -379,10 +379,8 @@
         document.getElementById('user-bar').style.display = 'flex';
         document.getElementById('display-user').innerText = `Thí sinh: ${user.name} - Lớp: ${user.class}`;
         
-        // Phát nhạc nhac-nen.mp3
         const m = document.getElementById('bg-music');
-        m.volume = 0.4;
-        m.play().catch(() => {});
+        m.volume = 0.4; m.play().catch(() => {});
 
         renderQuestion();
         startTimer();
@@ -511,10 +509,11 @@
             h += `<div class="history-item"><span class="history-item-q">Câu ${i+1}: ${q.question || q.context}</span>`;
             if(q.shOptions) {
                 const ut = ua !== null ? q.shOptions[ua].text : "Bỏ trống";
-                h += `Chọn: <span class="${ua===q.shCorrect?'correct-ans':'wrong-ans'}">${ut}</span> | Đúng: <span class="correct-ans">${q.shOptions[q.shCorrect].text}</span>`;
+                const ct = q.shOptions[q.shCorrect].text;
+                h += `Chọn: <span class="${ua===q.shCorrect?'correct-ans':'wrong-ans'}">${ut}</span> | Đúng: <span class="correct-ans">${ct}</span>`;
             } else if(q.shStmts) {
                 q.shStmts.forEach((s, si) => {
-                    const uv = ua ? ua[si] : null;
+                    const uv = (ua && ua.hasOwnProperty(si)) ? ua[si] : null;
                     h += `<div style="font-size:0.9rem; margin-top:4px;">- ${s.text}: <b>${uv===null?'...':(uv?'Đúng':'Sai')}</b> (Đáp án: <b>${s.originalVal?'Đúng':'Sai'}</b>) ${uv===s.originalVal?'✅':'❌'}</div>`;
                 });
             } else {
@@ -523,7 +522,7 @@
             h += `<div class="explanation-box">${q.explanation}</div></div>`;
         });
         document.getElementById(containerId).innerHTML = h;
-        if(window.MathJax) MathJax.typesetPromise();
+        if(window.MathJax) MathJax.typesetPromise([document.getElementById(containerId)]);
     };
 
     // --- ADMIN MODULE ---
@@ -533,12 +532,17 @@
         try {
             const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'results'));
             allRecords = []; let cls = new Set();
-            snap.forEach(d => { let data = d.data(); data.id = d.id; allRecords.push(data); if(data.class) cls.add(data.class); });
+            snap.forEach(d => { 
+                let data = d.data(); data.id = d.id; allRecords.push(data); 
+                if(data.class) cls.add(data.class); 
+            });
             const sel = document.getElementById('admin-filter-class');
+            const currentFilter = sel.value;
             sel.innerHTML = '<option value="all">Tất cả lớp</option>';
             [...cls].sort().forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
+            sel.value = currentFilter || 'all';
             renderAdminTable();
-        } catch(e) { content.innerHTML = '<p style="color:red; text-align:center;">Lỗi kết nối.</p>'; }
+        } catch(e) { content.innerHTML = '<p style="color:red; text-align:center;">Lỗi kết nối database.</p>'; }
     };
 
     const renderAdminTable = () => {
@@ -563,34 +567,38 @@
 
     window.exportToExcel = () => {
         if (!allRecords.length) return alert("Không có dữ liệu để xuất!");
-        const sort = document.getElementById('admin-sort').value;
         const filter = document.getElementById('admin-filter-class').value;
         let data = filter === 'all' ? [...allRecords] : allRecords.filter(r => r.class === filter);
-        
-        let csvContent = "\uFEFF";
-        csvContent += "Hạng,SBD,Lớp,Họ và Tên,Trường,Điểm,Thời gian làm (s),Ngày nộp\n";
-        
+        let csvContent = "\uFEFFHạng,SBD,Lớp,Họ và Tên,Trường,Điểm,Thời gian làm (s),Ngày nộp\n";
         data.forEach((r, i) => {
             const dt = r.timestamp ? new Date(r.timestamp.seconds * 1000).toLocaleString('vi-VN').replace(/,/g, '') : 'N/A';
             csvContent += `${i+1},${r.sbd},${r.class},"${r.name}","${r.school||''}",${r.score.toFixed(2)},${r.duration},${dt}\n`;
         });
-
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
-        link.setAttribute("href", url);
-        link.setAttribute("download", `Ket_qua_Co_nang_${filter}.csv`);
-        document.body.appendChild(link);
+        link.href = url;
+        link.download = `Ket_qua_Co_nang_${filter}.csv`;
         link.click();
-        document.body.removeChild(link);
     };
 
     window.viewRec = (id) => {
-        const r = allRecords.find(x => x.id === id); if(!r) return;
-        const d = JSON.parse(r.details);
-        document.getElementById('review-modal').style.display = 'flex';
-        document.getElementById('review-info-bar').innerHTML = `<b>HS:</b> ${r.name} | <b>SBD:</b> ${r.sbd} | <b>Điểm:</b> ${r.score} | <b>TG:</b> ${r.duration}s`;
-        renderHistory(d.qs || d.questions, d.ans || d.answers, 'review-body');
+        const r = allRecords.find(x => x.id === id);
+        if(!r) return;
+        if(!r.details) {
+            alert("Bản ghi này không có dữ liệu chi tiết bài làm (do nộp từ phiên bản cũ).");
+            return;
+        }
+        try {
+            const d = JSON.parse(r.details);
+            const reviewBody = document.getElementById('review-body');
+            reviewBody.innerHTML = '<p style="text-align:center;">Đang nạp dữ liệu...</p>';
+            document.getElementById('review-modal').style.display = 'flex';
+            document.getElementById('review-info-bar').innerHTML = `<b>HS:</b> ${r.name} | <b>SBD:</b> ${r.sbd} | <b>Điểm:</b> ${r.score} | <b>TG:</b> ${r.duration}s`;
+            renderHistory(d.qs || d.questions, d.ans || d.answers, 'review-body');
+        } catch(e) {
+            alert("Lỗi khi xử lý dữ liệu chi tiết bài làm.");
+        }
     };
 
     window.delRec = async (id) => { if(confirm("Xóa vĩnh viễn kết quả này?")) { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', id)); loadAdminData(); } };
@@ -599,6 +607,7 @@
     document.getElementById('btn-practice').onclick = () => startApp('practice');
     document.getElementById('btn-exam').onclick = () => startApp('exam');
     document.getElementById('btn-export-excel').onclick = window.exportToExcel;
+    document.getElementById('btn-close-modal').onclick = closeModal;
     document.getElementById('btn-open-admin').onclick = () => {
         document.getElementById('modal-admin-login').style.display = 'flex';
         document.getElementById('admin-password').focus();
@@ -622,7 +631,16 @@
     };
 
     onAuthStateChanged(auth, u => { currentUser = u; });
-    window.onload = () => { const s = localStorage.getItem('quiz_user'); if(s) { const u = JSON.parse(s); document.getElementById('input-sbd').value = u.sbd; document.getElementById('input-name').value = u.name; document.getElementById('input-class').value = u.class; document.getElementById('input-school').value = u.school; } };
+    window.onload = () => { 
+        const s = localStorage.getItem('quiz_user'); 
+        if(s) { 
+            const u = JSON.parse(s); 
+            document.getElementById('input-sbd').value = u.sbd || ""; 
+            document.getElementById('input-name').value = u.name || ""; 
+            document.getElementById('input-class').value = u.class || ""; 
+            document.getElementById('input-school').value = u.school || ""; 
+        } 
+    };
 </script>
 </body>
 </html>
