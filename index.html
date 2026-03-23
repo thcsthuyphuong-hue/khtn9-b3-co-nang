@@ -45,7 +45,7 @@
         }
 
         .app-container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             margin: 0 auto;
             flex: 1;
@@ -292,11 +292,11 @@
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .admin-table th, .admin-table td {
-            padding: 12px 8px;
+            padding: 10px 6px;
             border-bottom: 1px solid #eee;
             text-align: left;
         }
@@ -304,6 +304,7 @@
         .admin-table th {
             background-color: var(--primary-color);
             color: white;
+            white-space: nowrap;
         }
 
         .admin-table tr:nth-child(even) {
@@ -320,10 +321,16 @@
         .score-high { background-color: var(--success); }
         .score-low { background-color: var(--error); }
 
-        .rank-label {
-            font-size: 1.5rem;
+        .rank-badge {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            border-radius: 50%;
             font-weight: bold;
-            margin-bottom: 20px;
         }
 
         .app-footer {
@@ -355,14 +362,16 @@
             position: fixed;
             bottom: 10px;
             right: 10px;
-            opacity: 0.5;
-            background: #ccc;
+            opacity: 0.6;
+            background: #444;
+            color: white;
             border: none;
             cursor: pointer;
             font-size: 0.7rem;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
             z-index: 1001;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -378,7 +387,6 @@
 </div>
 
 <div class="app-container">
-    <!-- MÀN HÌNH CHÀO MỪNG -->
     <div id="screen-welcome" class="screen active">
         <div class="welcome-card">
             <h2 class="welcome-title">Thông tin thí sinh</h2>
@@ -398,9 +406,7 @@
                 <label>Trường</label>
                 <input type="text" id="input-school" placeholder="Ví dụ: THCS Thuỷ Phương">
             </div>
-
             <p id="exam-warning" class="warning-text">Cảnh báo quan trọng: “Nếu bạn rời khỏi trang làm bài, hệ thống sẽ tự động nộp bài.”</p>
-
             <div class="mode-selection">
                 <button class="btn btn-practice" id="btn-practice">LUYỆN TẬP</button>
                 <button class="btn btn-exam" id="btn-exam">LÀM BÀI KIỂM TRA</button>
@@ -408,7 +414,6 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH LÀM BÀI -->
     <div id="screen-quiz" class="screen">
         <div id="question-container"></div>
         <div class="nav-bar">
@@ -418,7 +423,6 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH KẾT QUẢ -->
     <div id="screen-result" class="screen">
         <div class="result-card">
             <h2 id="result-congrats">Chúc mừng!</h2>
@@ -432,11 +436,13 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH ADMIN -->
     <div id="screen-admin" class="screen">
-        <div class="welcome-card">
-            <h2 class="welcome-title">BẢNG ĐIỂM HỌC SINH</h2>
-            <button class="btn btn-prev" style="margin-bottom: 15px; width: auto;" onclick="location.reload()">Thoát Admin</button>
+        <div class="welcome-card" style="max-width: 100%;">
+            <h2 class="welcome-title">BẢNG VÀNG THÀNH TÍCH</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <button class="btn btn-prev" style="width: auto; padding: 8px 15px;" onclick="location.reload()">Quay lại</button>
+                <span id="admin-total-students" style="font-weight: bold; color: var(--secondary-color);">Tổng số: 0</span>
+            </div>
             <div id="admin-results-content" class="admin-results-container">
                 <p>Đang tải dữ liệu...</p>
             </div>
@@ -446,13 +452,12 @@
 
 <div class="app-footer">Bản quyền thuộc về Trường THCS Thuỷ Phương, Thành phố Huế</div>
 
-<!-- Modal Đăng nhập Admin -->
 <div id="modal-admin-login" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000;">
     <div class="modal-content" style="max-width: 400px; width: 90%;">
-        <h3>Đăng nhập Admin</h3>
-        <input type="password" id="admin-password" placeholder="Nhập mật khẩu" style="width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px;">
+        <h3>Xác thực giáo viên</h3>
+        <input type="password" id="admin-password" placeholder="Nhập mật khẩu Admin" style="width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px;">
         <div style="display: flex; gap: 10px;">
-            <button class="btn btn-next" id="btn-admin-login-confirm">Vào hệ thống</button>
+            <button class="btn btn-next" id="btn-admin-login-confirm">Đăng nhập</button>
             <button class="btn btn-prev" onclick="document.getElementById('modal-admin-login').style.display='none'">Hủy</button>
         </div>
     </div>
@@ -476,7 +481,6 @@
     import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyDg4Q6rsrvPhY31oCpL4DAAjTKlgjJN1c0",
         authDomain: "khtn9-5c1f4.firebaseapp.com",
@@ -493,7 +497,6 @@
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'khtn9-5c1f4';
 
     let currentUser = null;
-
     const initAuth = async () => {
         if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
             await signInWithCustomToken(auth, __initial_auth_token);
@@ -504,7 +507,6 @@
     initAuth();
     onAuthStateChanged(auth, (user) => { currentUser = user; });
 
-    // GAME DATA & LOGIC
     const BANK = {
         mcq: [
             { id: 3.1, level: "Nhận biết", question: "Đại lượng nào sau đây được định nghĩa là tổng động năng và thế năng của một vật?", options: ["Cơ năng.", "Công cơ học.", "Nhiệt năng.", "Công suất."], correct: 0, explanation: "Đúng theo định nghĩa cơ năng là tổng $W_đ + W_t$." },
@@ -530,11 +532,11 @@
             { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g được ném lên cao, tại vị trí có tốc độ 2 m/s và độ cao 1,5 m so với mặt đất. Biết trọng lượng quả bóng là 5 N. Cơ năng của quả bóng so với mặt đất là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "$W_đ = \\frac{1}{2} \\cdot 0,5 \\cdot 2^2 = 1$ J. $W_t = 5 \\cdot 1,5 = 7,5$ J. $W = 1 + 7,5 = 8,5$ J." },
             { id: 3.22, level: "Vận dụng", question: "Khi ta thả một quả bóng từ trên cao xuống mặt sàn, trong quá trình rơi đã có sự chuyển hóa năng lượng như thế nào?", options: ["Động năng chuyển hóa thành thế năng.", "Thế năng chuyển hóa thành động năng.", "Nhiệt năng chuyển hóa thành cơ năng.", "Cơ năng chuyển hóa thành hóa năng."], correct: 1, explanation: "Rơi xuống: độ cao giảm ($W_t$ giảm), tốc độ tăng ($W_đ$ tăng)." },
             { id: 3.23, level: "Vận dụng", question: "Một người đạp xe lên dốc, tốc độ của xe giảm dần. Khi đó", options: ["động năng giảm, thế năng tăng.", "động năng tăng, thế năng giảm.", "cả động năng và thế năng đều tăng.", "cả động năng và thế năng đều giảm."], correct: 0, explanation: "Lên cao ($W_t$ tăng), đi chậm lại ($W_đ$ giảm)." },
-            { id: 3.24, level: "Vận dụng", question: "Tại sao khi xây dựng các đập thủy điện, người ta phải xây đập rất cao và tích nước ở hồ chứa phía trên?", options: ["Để nước chảy đẹp hơn.", "Để tăng thế năng trọng trường của nước, tạo ra động năng lớn làm quay tuabin."], correct: 1, explanation: "Tăng thế năng nước để sau đó chuyển hóa thành động năng mạnh quay tuabin." }
+            { id: 3.24, level: "Vận dụng", question: "Tại sao khi xây dựng các đập thủy điện, người ta phải xây đập rất cao và tích nước ở hồ chứa phía trên?", options: ["Để nước chảy đẹp hơn.", "Để tăng thế năng trọng trường của nước, tạo ra động năng lớn làm quay tuabin.", "Để nuôi được nhiều cá hơn trong hồ.", "Để tiết kiệm diện tích đất ở phía dưới."], correct: 1, explanation: "Tăng thế năng nước để sau đó chuyển hóa thành động năng mạnh quay tuabin." }
         ],
         truefalse: [
             { id: 3.25, level: "Biết-Hiểu", context: "Bạn nhỏ chơi xích đu từ cao nhất xuống thấp nhất.", statements: ["Tại cao nhất, thế năng lớn nhất.", "Thế năng giảm và động năng tăng khi xuống thấp.", "Tại thấp nhất cơ năng bằng không.", "Thế năng chỉ phụ thuộc khối lượng."], pattern: [true, true, false, false], explanations: ["Đúng.", "Đúng.", "Sai.", "Sai."] },
-            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4kg, v=3m/s nằm ngang.", statements: ["Động năng là 18 J.", "Cơ năng bằng không.", "Tốc độ gấp đôi thì động năng gấp 4.", "Công thức $W_đ = 0.5mv$."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
+            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4kg, v=3m/s nằm ngang.", statements: ["Động năng là 18 J.", "Cơ năng bằng không.", "Tốc độ gấp đôi thì động năng gấp 4.", "Công thức $W_đ = 0.5mv^2$."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
             { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200g ở độ cao 3m.", statements: ["Thế năng là 6 J.", "Cơ năng bằng không.", "Cơ năng bảo toàn khi rơi.", "Thế năng tăng khi rơi."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
             { id: 3.28, level: "Biết-Vận dụng", context: "VĐV 600N ở bục 10m.", statements: ["Thế năng là 6000 J.", "Tại mặt nước thế năng 600 J.", "Công thức $W_t=Ph$.", "Động năng đứng yên là 6000 J."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] }
         ],
@@ -561,31 +563,25 @@
             class: document.getElementById('input-class').value.trim(),
             school: document.getElementById('input-school').value.trim()
         };
-
         if(!user.name || !user.sbd) {
             showModal("Lỗi", "Vui lòng nhập Họ tên và Số báo danh!");
             return;
         }
-
         localStorage.setItem('quiz_user', JSON.stringify(user));
         gameMode = mode;
         isFinished = false;
-        
         currentQuestions = generateQuizSet();
         userAnswers = new Array(currentQuestions.length).fill(null);
         currentIdx = 0;
-
         document.getElementById('screen-welcome').classList.remove('active');
         document.getElementById('screen-quiz').classList.add('active');
         document.getElementById('user-bar').style.display = 'flex';
         document.getElementById('display-user').innerText = `${user.name} - ${user.sbd}`;
-        
         if(mode === 'exam') {
             document.documentElement.requestFullscreen().catch(() => {});
             document.addEventListener("visibilitychange", handleCheat);
             window.addEventListener("blur", handleCheat);
         }
-
         renderQuestion();
         startTimer();
     };
@@ -594,20 +590,17 @@
         let p1 = [...BANK.mcq].sort(() => 0.5 - Math.random()).slice(0, 12);
         let p2 = [...BANK.truefalse].sort(() => 0.5 - Math.random()).slice(0, 4);
         let p3 = [...BANK.short].sort(() => 0.5 - Math.random()).slice(0, 4);
-        
         p1.forEach(q => {
             let opts = q.options.map((o, i) => ({ text: o, originalIdx: i }));
             opts.sort(() => 0.5 - Math.random());
             q.shuffledOptions = opts;
             q.shuffledCorrect = opts.findIndex(o => o.originalIdx === q.correct);
         });
-
         p2.forEach(q => {
             let statements = q.statements.map((s, i) => ({ text: s, originalVal: q.pattern[i], originalExp: q.explanations[i] }));
             statements.sort(() => 0.5 - Math.random());
             q.shuffledStatements = statements;
         });
-
         return [...p1, ...p2, ...p3];
     };
 
@@ -617,9 +610,7 @@
         let html = '';
         const part = currentIdx < 12 ? "PHẦN I" : (currentIdx < 16 ? "PHẦN II" : "PHẦN III");
         const num = currentIdx < 12 ? (currentIdx + 1) : (currentIdx < 16 ? (currentIdx - 11) : (currentIdx - 15));
-
         html += `<div class="question-slide"><div class="question-meta">${part} - Câu ${num} [${q.level}]</div>`;
-
         if(q.shuffledOptions) {
             html += `<div class="question-text">${q.question}</div><div class="options-list">`;
             q.shuffledOptions.forEach((opt, i) => {
@@ -644,11 +635,9 @@
                 <input type="text" class="short-answer-input" id="short-inp" value="${userAnswers[currentIdx] || ''}">`;
         }
         container.innerHTML = html + `</div>`;
-        
         document.getElementById('btn-prev').disabled = currentIdx === 0;
         document.getElementById('btn-next').style.display = currentIdx === 19 ? 'none' : 'block';
         document.getElementById('btn-submit').style.display = currentIdx === 19 ? 'block' : 'none';
-
         if(window.MathJax) MathJax.typeset();
         attachListeners();
     };
@@ -669,6 +658,7 @@
 
     const startTimer = () => {
         resetTimer();
+        if(timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             if(isFinished) return;
             timeRemaining--;
@@ -704,7 +694,6 @@
         clearInterval(timerInterval);
         playSound('finish');
         if(document.fullscreenElement) document.exitFullscreen();
-
         let score = 0;
         currentQuestions.forEach((q, idx) => {
             const ans = userAnswers[idx];
@@ -714,117 +703,64 @@
                 score += [0, 0.0625, 0.125, 0.25, 0.5][c];
             } else { if(ans && ans.trim().toLowerCase() === q.answer.toLowerCase()) score += 0.5; }
         });
-
         const finalScore = score.toFixed(1);
         const user = JSON.parse(localStorage.getItem('quiz_user'));
-
-        // Firebase: Save Results (Rule 1 & 3)
         if (currentUser) {
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'results'), {
-                    sbd: user.sbd,
-                    name: user.name,
-                    class: user.class,
-                    score: parseFloat(finalScore),
-                    timestamp: serverTimestamp()
+                    sbd: user.sbd, name: user.name, class: user.class, school: user.school,
+                    score: parseFloat(finalScore), timestamp: serverTimestamp()
                 });
-            } catch (e) { console.error("Error saving score:", e); }
+            } catch (e) { console.error(e); }
         }
-
         document.getElementById('screen-quiz').classList.remove('active');
         document.getElementById('screen-result').classList.add('active');
         document.getElementById('result-score').innerText = finalScore;
         document.getElementById('result-rank').innerText = score>=6?"XUẤT SẮC":score>=5?"GIỎI":score>=4?"KHÁ":score>=3?"ĐẠT":"CHƯA ĐẠT";
         document.getElementById('result-congrats').innerText = `Chúc mừng ${user.name}!`;
-
-        let hist = '<h3>Chi tiết:</h3>';
+        let hist = '<h3>Chi tiết bài làm:</h3>';
         currentQuestions.forEach((q, i) => {
             hist += `<div class="history-item"><b>Câu ${i+1}:</b> ${q.question||q.context}<br>Giải thích: ${q.explanation || 'Xem hướng dẫn SGK.'}</div>`;
         });
         document.getElementById('result-history').innerHTML = hist;
     };
 
-    // ADMIN FUNCTIONS
     const openAdminLogin = () => {
         document.getElementById('modal-admin-login').style.display = 'flex';
         document.getElementById('admin-password').focus();
     };
 
     const checkAdminPassword = () => {
-        const pass = document.getElementById('admin-password').value;
-        if(pass === 'admin123') { // Mật khẩu mặc định
+        if(document.getElementById('admin-password').value === 'admin123') {
             document.getElementById('modal-admin-login').style.display = 'none';
             showAdminScreen();
-        } else {
-            alert('Sai mật khẩu!');
-        }
+        } else { alert('Sai mật khẩu!'); }
     };
 
     const showAdminScreen = async () => {
-        if(!currentUser) return;
-        
-        // Chuyển màn hình
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('screen-admin').classList.add('active');
         document.getElementById('user-bar').style.display = 'none';
-
         const content = document.getElementById('admin-results-content');
         content.innerHTML = '<p>Đang tải dữ liệu...</p>';
-
         try {
             const querySnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'results'));
             let results = [];
-            querySnapshot.forEach((doc) => {
-                results.push(doc.data());
-            });
-
-            // Sắp xếp theo thời gian nộp bài mới nhất (Rule 2: Sắp xếp trong JS)
-            results.sort((a, b) => {
-                const timeA = a.timestamp?.seconds || 0;
-                const timeB = b.timestamp?.seconds || 0;
-                return timeB - timeA;
-            });
-
+            querySnapshot.forEach((doc) => results.push(doc.data()));
+            results.sort((a, b) => b.score - a.score);
             if(results.length === 0) {
-                content.innerHTML = '<p>Chưa có dữ liệu bài làm nào.</p>';
+                content.innerHTML = '<p>Chưa có dữ liệu.</p>';
+                document.getElementById('admin-total-students').innerText = "Tổng số: 0";
                 return;
             }
-
-            let tableHtml = `
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>SBD</th>
-                            <th>Họ và Tên</th>
-                            <th>Lớp</th>
-                            <th>Điểm</th>
-                            <th>Thời gian</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-
-            results.forEach(res => {
-                const date = res.timestamp ? new Date(res.timestamp.seconds * 1000).toLocaleString('vi-VN') : '...';
-                const scoreClass = res.score >= 5 ? 'score-high' : 'score-low';
-                tableHtml += `
-                    <tr>
-                        <td>${res.sbd}</td>
-                        <td>${res.name}</td>
-                        <td>${res.class}</td>
-                        <td><span class="score-badge ${scoreClass}">${res.score.toFixed(1)}</span></td>
-                        <td>${date}</td>
-                    </tr>
-                `;
+            document.getElementById('admin-total-students').innerText = `Tổng số: ${results.length}`;
+            let tableHtml = `<table class="admin-table"><thead><tr><th>Hạng</th><th>Họ Tên</th><th>Trường</th><th>SBD</th><th>Lớp</th><th>Điểm</th><th>Thời gian</th></tr></thead><tbody>`;
+            results.forEach((res, index) => {
+                const date = res.timestamp ? new Date(res.timestamp.seconds * 1000).toLocaleString('vi-VN', {hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit'}) : '...';
+                tableHtml += `<tr><td><span class="rank-badge">${index + 1}</span></td><td style="font-weight:bold;">${res.name}</td><td style="font-size:0.75rem;">${res.school || '...'}</td><td>${res.sbd}</td><td>${res.class}</td><td><span class="score-badge ${res.score>=5?'score-high':'score-low'}">${res.score.toFixed(1)}</span></td><td style="font-size:0.7rem;">${date}</td></tr>`;
             });
-
-            tableHtml += '</tbody></table>';
-            content.innerHTML = tableHtml;
-
-        } catch (e) {
-            content.innerHTML = '<p style="color:red;">Lỗi khi tải dữ liệu. Vui lòng thử lại.</p>';
-            console.error(e);
-        }
+            content.innerHTML = tableHtml + '</tbody></table>';
+        } catch (e) { content.innerHTML = '<p>Lỗi truy xuất.</p>'; }
     };
 
     const showModal = (t, b) => {
@@ -832,23 +768,18 @@
         document.getElementById('modal-body').innerText = b;
         document.getElementById('custom-modal').style.display = 'flex';
     };
-
     const closeModal = () => document.getElementById('custom-modal').style.display = 'none';
     const playSound = (t) => { try { document.getElementById('sound-'+t).play(); } catch(e) {} };
 
-    // Initial Button Handlers
     document.getElementById('btn-practice').onclick = () => startApp('practice');
     document.getElementById('btn-exam').onclick = () => startApp('exam');
     document.getElementById('btn-prev').onclick = prevQuestion;
     document.getElementById('btn-next').onclick = nextQuestion;
     document.getElementById('btn-submit').onclick = () => confirm("Nộp bài?") && finishQuiz();
     document.getElementById('btn-close-modal').onclick = closeModal;
-    
-    // Admin Handlers
     document.getElementById('btn-open-admin').onclick = openAdminLogin;
     document.getElementById('btn-admin-login-confirm').onclick = checkAdminPassword;
     document.getElementById('admin-password').onkeypress = (e) => { if(e.key === 'Enter') checkAdminPassword(); };
-
 </script>
 </body>
 </html>
