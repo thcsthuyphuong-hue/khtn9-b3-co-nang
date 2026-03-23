@@ -245,7 +245,7 @@
 <div id="modal-admin-login">
     <div class="modal-content">
         <h3 style="text-align:center; color: var(--primary);">XÁC THỰC GIÁO VIÊN</h3>
-        <p style="text-align:center; font-size: 0.9rem; color: #666;">Nhập mật khẩu quản trị (admin123)</p>
+        <p style="text-align:center; font-size: 0.9rem; color: #666;">Nhập mật khẩu quản trị</p>
         <input type="password" id="admin-password" placeholder="Mật khẩu Admin" style="width: 100%; padding: 18px; margin: 20px 0; border: 2.5px solid #eee; border-radius: 12px; font-size: 1.2rem; text-align: center;">
         <div style="display: flex; gap: 10px;">
             <button class="btn btn-exam" id="btn-admin-login-confirm" style="flex:2">ĐĂNG NHẬP</button>
@@ -574,7 +574,7 @@
     document.getElementById('btn-close-modal').onclick = closeModal;
     document.getElementById('btn-open-admin').onclick = () => document.getElementById('modal-admin-login').style.display = 'flex';
     document.getElementById('btn-admin-login-confirm').onclick = () => {
-        if(document.getElementById('admin-password').value === 'admin123') {
+        if(document.getElementById('admin-password').value === 'anhnhandeptrai123') {
             document.getElementById('modal-admin-login').style.display = 'none';
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-admin').classList.add('active');
