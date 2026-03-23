@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KHTN 9 - Bài 3: Cơ năng</title>
-    <!-- MathJax rendering -->
+    <!-- MathJax rendering cho công thức vật lí -->
     <script>
         window.MathJax = {
             tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
@@ -44,7 +44,7 @@
 
         /* Cards */
         .welcome-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); margin-top: 10px; border-top: 5px solid var(--primary); }
-        .welcome-title { color: var(--primary); text-align: center; margin-bottom: 25px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .welcome-title { color: var(--primary); text-align: center; margin-bottom: 25px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
 
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: bold; font-size: 0.9rem; color: #555; }
@@ -59,18 +59,24 @@
             text-align: center; display: flex; align-items: center; justify-content: center;
             text-transform: uppercase;
         }
-        .btn-practice { background-color: #f0f0f0; color: var(--primary); border: 1px solid #ddd; }
-        .btn-exam { background-color: var(--primary); color: white; }
-        .btn-exam:hover { background-color: #002244; }
+        .btn-practice { background-color: #e8f0fe; color: var(--primary); border: 1px solid #c2d6f9; }
+        .btn-exam { background-color: var(--secondary); color: white; }
+        .btn-exam:hover { background-color: var(--primary); }
         .btn-next { background-color: var(--secondary); color: white; }
         .btn-prev { background-color: #bbb; color: #333; }
         .btn-submit { background-color: var(--error); color: white; }
-        .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 4px; }
 
-        /* Admin link on welcome screen */
+        /* Admin link on welcome screen - image_3c650b.png */
         .admin-link-container { text-align: center; margin-top: 25px; }
-        .admin-link { cursor: pointer; color: #999; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; padding: 10px; display: inline-block; }
+        .admin-link { cursor: pointer; color: #aaa; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; padding: 10px; display: inline-block; text-decoration: none; }
         .admin-link:hover { color: var(--secondary); }
+
+        /* Music Toggle Button */
+        #music-toggle {
+            cursor: pointer; background: rgba(255,255,255,0.2); border-radius: 50%;
+            width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+            margin-left: 10px; border: 1px solid rgba(255,255,255,0.4); font-size: 14px;
+        }
 
         /* Quiz UI */
         .question-slide { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 5px; min-height: 400px; }
@@ -92,12 +98,29 @@
         .tf-btn.active-false { background: var(--error); color: white; border-color: var(--error); }
 
         .short-answer-input { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.2rem; margin-top: 15px; outline: none; text-align: center; }
-        .short-answer-input:focus { border-color: var(--secondary); box-shadow: 0 0 10px rgba(0,80,157,0.1); }
 
         .nav-bar { display: flex; padding: 15px; background: white; border-top: 1px solid #eee; margin-top: auto; gap: 10px; }
 
-        /* Result & History */
-        .result-card { background: white; padding: 30px; border-radius: 12px; text-align: center; }
+        /* Cloud Status Indicator */
+        #cloud-status { margin: 15px auto; padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; transition: all 0.5s; display: inline-block; }
+        .status-syncing { color: #856404; background: #fff3cd; border: 1px solid #ffeeba; }
+        .status-success { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
+        .status-error { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
+
+        /* Admin Layout - image_2cd343.png */
+        .admin-header-title { display: flex; align-items: center; gap: 12px; color: var(--primary); font-weight: 800; margin-bottom: 20px; font-size: 1.6rem; border-bottom: 4px solid var(--primary); padding-bottom: 12px; }
+        .admin-controls { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; background: #f1f6fb; padding: 20px; border-radius: 10px; border: 1px solid #d0e1f3; align-items: flex-end; }
+        .control-group { display: flex; flex-direction: column; gap: 6px; min-width: 180px; }
+        .control-group label { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
+        .control-group select { padding: 10px; border-radius: 6px; border: 1px solid #bcd0e7; background: white; font-size: 0.95rem; }
+
+        .admin-table-wrapper { width: 100%; overflow-x: auto; background: white; border-radius: 10px; border: 1px solid #eee; }
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 900px; }
+        .admin-table th { background-color: var(--secondary); color: white; padding: 15px 10px; text-align: center; font-size: 0.8rem; text-transform: uppercase; }
+        .admin-table td { padding: 12px 10px; border-bottom: 1px solid #eee; text-align: center; }
+        .admin-table tr:hover { background-color: #f9fbff; }
+
+        /* Review Modal Detail Items */
         .history-list { text-align: left; margin-top: 25px; max-height: 60vh; overflow-y: auto; padding: 15px; border: 1px solid #eee; background: #fafafa; border-radius: 10px; }
         .history-item { padding: 20px; border-bottom: 2px solid #fff; margin-bottom: 20px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .history-item-q { font-weight: bold; color: var(--primary); display: block; margin-bottom: 12px; font-size: 1.1rem; }
@@ -105,56 +128,37 @@
         .wrong-ans { color: var(--error); font-weight: bold; }
         .correct-ans { color: var(--success); font-weight: bold; }
 
-        /* Cloud Status */
-        #cloud-status { margin: 15px auto; padding: 10px 20px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; transition: all 0.5s; display: inline-block; }
-        .status-syncing { color: #856404; background: #fff3cd; border: 1px solid #ffeeba; }
-        .status-success { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
-        .status-error { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
-
-        /* Admin Layout */
-        .admin-header-title { display: flex; align-items: center; gap: 12px; color: var(--primary); font-weight: bold; margin-bottom: 20px; font-size: 1.6rem; border-bottom: 4px solid var(--primary); padding-bottom: 12px; }
-        .admin-controls {
-            display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 25px;
-            background: #f1f6fb; padding: 20px; border-radius: 10px; align-items: flex-end;
-            border: 1px solid #d0e1f3;
-        }
-        .control-group { display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
-        .control-group label { font-size: 0.9rem; font-weight: 700; color: var(--primary); }
-        .control-group select { padding: 12px; border-radius: 8px; border: 1px solid #bcd0e7; font-size: 1rem; background: white; }
-
-        .admin-results-container { width: 100%; overflow-x: auto; background: white; border-radius: 10px; border: 1px solid #eee; }
-        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 1000px; }
-        .admin-table th { background-color: var(--secondary); color: white; padding: 15px; text-align: center; text-transform: uppercase; font-size: 0.85rem; }
-        .admin-table td { padding: 15px 10px; border-bottom: 1px solid #eee; text-align: center; }
-        .admin-table tr:hover { background-color: #f4faff; }
-        .score-val { font-weight: bold; color: var(--primary); font-size: 1.1rem; }
-
         /* Modals & Backdrop */
         #review-modal, #modal-admin-login, #custom-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.75); backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
             display: none; justify-content: center; align-items: center; z-index: 10000; padding: 20px;
         }
         .modal-content { 
             background: white; padding: 30px; border-radius: 15px; 
             max-width: 480px; width: 100%; max-height: 90vh; 
             overflow-y: auto; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.4); 
-            animation: modalPop 0.3s ease-out;
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes modalPop { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* Large modal for review */
-        #review-modal .modal-content { max-width: 900px; }
-        
+        #review-modal .modal-content { max-width: 950px; }
+
         .app-footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #888; border-top: 1px solid #eee; margin-top: auto; }
     </style>
 </head>
 <body>
 
+<!-- NHẠC NỀN TỪ TỆP LOCAL nhac-nen.mp3 -->
+<audio id="bg-music" src="nhac-nen.mp3" loop></audio>
+
 <div class="app-header">KHOA HỌC TỰ NHIÊN 9 - BÀI 3: CƠ NĂNG</div>
 
 <div id="user-bar" class="user-info-bar" style="display: none;">
-    <span id="display-user">Thí sinh: ...</span>
+    <div style="display: flex; align-items: center;">
+        <span id="display-user">Thí sinh: ...</span>
+        <div id="music-toggle" title="Bật/Tắt nhạc nền">🎵</div>
+    </div>
     <span id="timer-display" style="font-weight: 800; background: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 20px;">00:00</span>
 </div>
 
@@ -162,7 +166,7 @@
     <!-- Screen: Welcome -->
     <div id="screen-welcome" class="screen active">
         <div class="welcome-card">
-            <h2 class="welcome-title">THÔNG TIN THÍ SINH</h2>
+            <h2 class="welcome-title">THÔNG TIN DỰ THI</h2>
             <div class="form-group"><label>Số báo danh</label><input type="text" id="input-sbd" placeholder="Ví dụ: 027"></div>
             <div class="form-group"><label>Họ và tên</label><input type="text" id="input-name" placeholder="Nhập họ và tên đầy đủ"></div>
             <div class="form-group"><label>Lớp</label><input type="text" id="input-class" placeholder="Ví dụ: 9/1"></div>
@@ -172,8 +176,7 @@
                 <button class="btn btn-practice" id="btn-practice">LUYỆN TẬP</button>
                 <button class="btn btn-exam" id="btn-exam">LÀM BÀI KIỂM TRA</button>
             </div>
-            
-            <!-- ADMIN ACCESS IN WELCOME SCREEN -->
+            <!-- Admin access point as requested -->
             <div class="admin-link-container">
                 <span class="admin-link" id="btn-open-admin">ADMIN</span>
             </div>
@@ -184,8 +187,8 @@
     <div id="screen-quiz" class="screen">
         <div id="question-container"></div>
         <div class="nav-bar">
-            <button class="btn btn-prev" id="btn-prev">QUAY LẠI</button>
-            <button class="btn btn-next" id="btn-next" style="flex:1">TIẾP THEO</button>
+            <button class="btn btn-prev" id="btn-prev" onclick="window.prevQ()">QUAY LẠI</button>
+            <button class="btn btn-next" id="btn-next" style="flex:1" onclick="window.nextQ()">TIẾP THEO</button>
             <button class="btn btn-submit" id="btn-submit" style="display: none; flex:1">NỘP BÀI</button>
         </div>
     </div>
@@ -193,15 +196,13 @@
     <!-- Screen: Result -->
     <div id="screen-result" class="screen">
         <div class="result-card">
-            <h2 id="result-congrats">CHÚC MỪNG BẠN!</h2>
+            <h2 id="result-congrats">HOÀN THÀNH BÀI THI!</h2>
             <div style="background: var(--primary); color: white; width: 140px; height: 140px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 25px auto; font-weight: bold; border: 6px solid var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
                 <span id="result-score" style="font-size: 2.8rem;">0.0</span>
                 <span style="font-size: 0.8rem; opacity: 0.9;">ĐIỂM / 7.0</span>
             </div>
             <div id="result-rank" style="font-weight: 800; font-size: 1.8rem; color: var(--secondary); margin-bottom: 10px;">...</div>
-            
             <div id="cloud-status"></div>
-
             <button class="btn btn-next" onclick="location.reload()" style="margin: 20px auto; width: 250px;">LÀM LẠI BÀI THI</button>
             <div id="result-history" class="history-list"></div>
         </div>
@@ -211,7 +212,6 @@
     <div id="screen-admin" class="screen">
         <div class="welcome-card" style="max-width: 100%;">
             <div class="admin-header-title">📊 BẢNG XẾP HẠNG HỌC SINH</div>
-            
             <div class="admin-controls">
                 <div class="control-group">
                     <label>Sắp xếp theo:</label>
@@ -229,13 +229,11 @@
                         <option value="all">Tất cả lớp</option>
                     </select>
                 </div>
-                <button class="btn btn-next btn-sm" id="btn-admin-refresh" style="background:#007bff">Làm mới dữ liệu</button>
-                <button class="btn btn-excel btn-sm" style="background:#28a745" onclick="alert('Tính năng xuất Excel đang được xử lý.')">Xuất Excel</button>
-                <button class="btn btn-prev btn-sm" style="width: 120px;" onclick="location.reload()">Thoát Admin</button>
+                <button class="btn btn-next btn-sm" id="btn-admin-refresh" style="background:#007bff; color:white;">Làm mới</button>
+                <button class="btn btn-prev btn-sm" style="width: 120px;" onclick="location.reload()">Thoát Quản Trị</button>
             </div>
-
-            <div id="admin-results-content" class="admin-results-container">
-                <p style="padding: 30px; text-align: center;">Đang kết nối Cloud...</p>
+            <div id="admin-results-content" class="admin-table-wrapper">
+                <p style="padding: 30px; text-align: center;">Đang đồng bộ dữ liệu từ Cloud...</p>
             </div>
         </div>
     </div>
@@ -243,12 +241,12 @@
 
 <div class="app-footer">Bản quyền thuộc về Trường THCS Thuỷ Phương, Thành phố Huế</div>
 
-<!-- Modal Đăng nhập Admin -->
+<!-- Modals -->
 <div id="modal-admin-login">
     <div class="modal-content">
         <h3 style="text-align:center; color: var(--primary);">XÁC THỰC GIÁO VIÊN</h3>
-        <p style="text-align:center; font-size: 0.9rem; color: #666;">Vui lòng nhập mật khẩu quản trị để truy cập dữ liệu.</p>
-        <input type="password" id="admin-password" placeholder="Mật khẩu" style="width: 100%; padding: 18px; margin: 20px 0; border: 2.5px solid #eee; border-radius: 12px; font-size: 1.2rem; text-align: center; outline-color: var(--secondary);">
+        <p style="text-align:center; font-size: 0.9rem; color: #666;">Nhập mật khẩu quản trị (admin123)</p>
+        <input type="password" id="admin-password" placeholder="Mật khẩu Admin" style="width: 100%; padding: 18px; margin: 20px 0; border: 2.5px solid #eee; border-radius: 12px; font-size: 1.2rem; text-align: center;">
         <div style="display: flex; gap: 10px;">
             <button class="btn btn-exam" id="btn-admin-login-confirm" style="flex:2">ĐĂNG NHẬP</button>
             <button class="btn btn-prev" onclick="document.getElementById('modal-admin-login').style.display='none'" style="flex:1">HỦY</button>
@@ -256,11 +254,10 @@
     </div>
 </div>
 
-<!-- Modal Xem lại bài làm -->
 <div id="review-modal">
     <div class="modal-content">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
-            <h3 id="review-title" style="margin:0; color: var(--primary);">CHI TIẾT BÀI LÀM</h3>
+            <h3 style="margin:0; color: var(--primary);">CHI TIẾT BÀI LÀM</h3>
             <button class="btn btn-prev btn-sm" onclick="document.getElementById('review-modal').style.display='none'">ĐÓNG</button>
         </div>
         <div id="review-info-bar" style="background:#eef6ff; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.95rem; border: 1px solid #cfe2f3;"></div>
@@ -268,24 +265,20 @@
     </div>
 </div>
 
-<!-- Modal Thông báo -->
 <div id="custom-modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width: 450px; text-align: center;">
         <h3 id="modal-title" style="color: var(--error);">THÔNG BÁO</h3>
-        <p id="modal-body" style="font-size: 1.1rem; line-height: 1.7; margin: 25px 0;"></p>
+        <p id="modal-body" style="font-size: 1.05rem; line-height: 1.6; margin: 20px 0;"></p>
         <button class="btn btn-next" id="btn-close-modal" style="margin: 0 auto; width: 150px;">ĐÃ HIỂU</button>
     </div>
 </div>
-
-<audio id="sound-ping" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
-<audio id="sound-finish" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // --- CẤU HÌNH FIREBASE ---
+    // --- Cấu hình Firebase mới nhất bạn cung cấp ---
     const firebaseConfig = {
         apiKey: "AIzaSyDg4Q6rsrvPhY31oCpL4DAAjTKlgjJN1c0",
         authDomain: "khtn9-5c1f4.firebaseapp.com",
@@ -313,54 +306,50 @@
     let isSavingLock = false;
     let allRecords = [];
 
-    // --- NGÂN HÀNG CÂU HỎI (100% COVERAGE) ---
+    // --- NGÂN HÀNG CÂU HỎI (40 CÂU, 100% GIẢI THÍCH CHI TIẾT) ---
     const BANK = {
         mcq: [
-            { id: 3.1, level: "Nhận biết", question: "Đại lượng nào sau đây được định nghĩa là tổng động năng và thế năng của một vật?", options: ["Cơ năng.", "Công cơ học.", "Nhiệt năng.", "Công suất."], correct: 0, explanation: "<b>Tại sao đúng:</b> Theo khái niệm vật lí, cơ năng ($W$) là tổng của động năng ($W_đ$) và thế năng ($W_t$). Biểu thức: $W = W_đ + W_t$.<br><b>Tại sao các ý khác sai:</b> B sai vì Công là sự truyền năng lượng qua lực; C sai vì Nhiệt năng là năng lượng nội tại phân tử; D sai vì Công suất là tốc độ thực hiện công." },
-            { id: 3.2, level: "Nhận biết", question: "Công thức tính động năng của một vật có khối lượng $m$ đang chuyển động với tốc độ $v$ là", options: ["$W_đ = mv^2$.", "$W_đ = \\frac{1}{2}mv^2$.", "$W_đ = \\frac{1}{2}mv$.", "$W_đ = 2mv^2$."], correct: 1, explanation: "<b>Tại sao đúng:</b> Động năng được xác định bởi biểu thức $W_đ = \\frac{1}{2}mv^2$.<br><b>Tại sao các ý khác sai:</b> A thiếu hệ số $1/2$; C thiếu bình phương tốc độ; D sai hệ số tỉ lệ." },
-            { id: 3.3, level: "Nhận biết", question: "Một vật có trọng lượng $P$ đang ở độ cao $h$ so với mốc tính thế năng. Thế năng trọng trường $W_t$ được tính theo công thức", options: ["$W_t = \\frac{1}{2}Ph$.", "$W_t = P + h$.", "$W_t = Ph$.", "$W_t = \\frac{P}{h}$."], correct: 2, explanation: "<b>Tại sao đúng:</b> Thế năng trọng trường tỉ lệ thuận với trọng lượng và độ cao: $W_t = Ph$.<br><b>Tại sao các ý khác sai:</b> A thừa $1/2$; B dùng phép cộng; D dùng phép chia đều sai bản chất." },
-            { id: 3.4, level: "Nhận biết", question: "Đơn vị của cơ năng, động năng và thế năng trong hệ SI là", options: ["joule (J).", "newton (N).", "watt (W).", "pascal (Pa)."], correct: 0, explanation: "<b>Tại sao đúng:</b> Joule (J) là đơn vị năng lượng chuẩn.<br><b>Tại sao các ý khác sai:</b> N đo lực; W đo công suất; Pa đo áp suất." },
-            { id: 3.5, level: "Nhận biết", question: "Trong công thức $W_đ = \\frac{1}{2}mv^2$, đại lượng $v$ đại diện cho", options: ["thời gian.", "quãng đường.", "tốc độ.", "gia tốc."], correct: 2, explanation: "<b>Tại sao đúng:</b> Trong biểu thức động năng, $v$ là tốc độ chuyển động của vật." },
-            { id: 3.6, level: "Nhận biết", question: "Khi một vật nằm tại vị trí được chọn làm mốc thế năng thì thế năng trọng trường của vật đó bằng", options: ["0 J.", "1 J.", "10 J.", "vô cùng."], correct: 0, explanation: "<b>Tại sao đúng:</b> Mốc thế năng có $h = 0 \Rightarrow W_t = P \cdot 0 = 0$ J." },
-            { id: 3.7, level: "Nhận biết", question: "Một vật có khối lượng $m$ đang chuyển động, nếu vật dừng lại thì động năng sẽ", options: ["bằng không.", "không đổi.", "tăng lên.", "âm."], correct: 0, explanation: "<b>Tại sao đúng:</b> Dừng lại $\Rightarrow v = 0 \Rightarrow W_đ = 0$." },
-            { id: 3.8, level: "Nhận biết", question: "Trong công thức $W_t = Ph$, đại lượng $h$ là", options: ["khối lượng.", "tốc độ.", "độ cao so với mốc.", "trọng lượng."], correct: 2, explanation: "<b>Tại sao đúng:</b> $h$ là độ cao thẳng đứng từ mốc thế năng đến vật." },
-            { id: 3.9, level: "Thông hiểu", question: "Giữ nguyên độ cao nhưng tăng khối lượng vật lên 3 lần thì thế năng trọng trường sẽ", options: ["giảm 3 lần.", "không đổi.", "tăng 3 lần.", "tăng 9 lần."], correct: 2, explanation: "<b>Giải thích:</b> $W_t = mgh$. Khi $h$ không đổi, $W_t \propto m$. $m$ tăng 3 $\Rightarrow W_t$ tăng 3." },
-            { id: 3.10, level: "Thông hiểu", question: "Hai vật bằng khối lượng, vật A ở 5m, vật B ở 10m. Nhận định nào ĐÚNG?", options: ["$W_{tA} > W_{tB}$.", "$W_{tB} > W_{tA}$.", "$W_{tA} = W_{tB}$.", "Không so sánh được."], correct: 1, explanation: "<b>Giải thích:</b> Cùng khối lượng, vật nào cao hơn thì thế năng lớn hơn. 10m > 5m nên $W_{tB} > W_{tA}$." },
+            { id: 3.1, level: "Nhận biết", question: "Đại lượng nào sau đây được định nghĩa là tổng động năng và thế năng của một vật?", options: ["Cơ năng.", "Công cơ học.", "Nhiệt năng.", "Công suất."], correct: 0, explanation: "<b>Tại sao đúng:</b> Theo định nghĩa SGK KHTN 9, cơ năng ($W$) là tổng của động năng ($W_đ$) và thế năng ($W_t$). Biểu thức: $W = W_đ + W_t$.<br><b>Các ý khác:</b> B sai vì Công $A=F.s$; C sai vì Nhiệt năng là nội năng; D sai vì Công suất là tốc độ thực hiện công." },
+            { id: 3.2, level: "Nhận biết", question: "Công thức tính động năng của một vật có khối lượng $m$ đang chuyển động với tốc độ $v$ là", options: ["$W_đ = mv^2$.", "$W_đ = \\frac{1}{2}mv^2$.", "$W_đ = \\frac{1}{2}mv$.", "$W_đ = 2mv^2$."], correct: 1, explanation: "<b>Tại sao đúng:</b> Động năng được tính bằng biểu thức chuẩn $W_đ = \\frac{1}{2}mv^2$.<br><b>Các ý khác:</b> Thiếu hệ số $1/2$ hoặc thiếu bình phương $v$." },
+            { id: 3.3, level: "Nhận biết", question: "Một vật có trọng lượng $P$ đang ở độ cao $h$ so với mốc tính thế năng. Thế năng trọng trường $W_t$ của vật được tính theo công thức", options: ["$W_t = \\frac{1}{2}Ph$.", "$W_t = P + h$.", "$W_t = Ph$.", "$W_t = \\frac{P}{h}$."], correct: 2, explanation: "<b>Tại sao đúng:</b> Thế năng trọng trường tỉ lệ thuận với trọng lượng $P$ và độ cao $h$: $W_t = Ph$." },
+            { id: 3.4, level: "Nhận biết", question: "Đơn vị của cơ năng, động năng và thế năng trong hệ SI là", options: ["joule (J).", "newton (N).", "watt (W).", "pascal (Pa)."], correct: 0, explanation: "<b>Tại sao đúng:</b> Joule (J) là đơn vị đo năng lượng chính thức trong hệ SI." },
+            { id: 3.5, level: "Nhận biết", question: "Trong công thức $W_đ = \\frac{1}{2}mv^2$, đại lượng $v$ đại diện cho", options: ["thời gian.", "quãng đường.", "tốc độ.", "gia tốc."], correct: 2, explanation: "<b>Tại sao đúng:</b> Trong vật lí học cơ bản, $v$ là kí hiệu của tốc độ (vận tốc)." },
+            { id: 3.6, level: "Nhận biết", question: "Khi một vật nằm tại vị trí được chọn làm mốc thế năng thì thế năng trọng trường của vật đó bằng", options: ["0 J.", "1 J.", "10 J.", "vô cùng."], correct: 0, explanation: "<b>Tại sao đúng:</b> Mốc thế năng có độ cao $h = 0 \Rightarrow W_t = P \cdot 0 = 0$ J." },
+            { id: 3.7, level: "Nhận biết", question: "Một vật có khối lượng $m$ đang chuyển động, nếu vật dừng lại thì động năng sẽ", options: ["bằng không.", "không đổi.", "tăng lên.", "âm."], correct: 0, explanation: "<b>Tại sao đúng:</b> Dừng lại nghĩa là tốc độ $v = 0 \Rightarrow W_đ = 0$." },
+            { id: 3.8, level: "Nhận biết", question: "Trong công thức $W_t = Ph$, đại lượng $h$ là", options: ["khối lượng.", "tốc độ.", "độ cao so với mốc.", "trọng lượng."], correct: 2, explanation: "<b>Tại sao đúng:</b> $h$ là độ cao thẳng đứng tính từ mốc thế năng đến vật." },
+            { id: 3.9, level: "Thông hiểu", question: "Nếu giữ nguyên độ cao nhưng tăng khối lượng vật lên 3 lần thì thế năng trọng trường sẽ", options: ["giảm 3 lần.", "không đổi.", "tăng 3 lần.", "tăng 9 lần."], correct: 2, explanation: "<b>Giải thích:</b> $W_t = mgh$. Khi $g$ và $h$ không đổi, $W_t \propto m$. $m$ tăng 3 $\Rightarrow W_t$ tăng 3." },
+            { id: 3.10, level: "Thông hiểu", question: "Hai vật bằng khối lượng, vật A ở 5m, vật B ở 10m. Nhận định nào ĐÚNG?", options: ["$W_{tA} > W_{tB}$.", "$W_{tB} > W_{tA}$.", "$W_{tA} = W_{tB}$.", "Không so sánh được."], correct: 1, explanation: "<b>Giải thích:</b> Cùng khối lượng, vật ở cao hơn có thế năng lớn hơn (10m > 5m)." },
             { id: 3.11, level: "Thông hiểu", question: "Quả mít rơi từ trên cây xuống đất, thế năng trọng trường của quả mít sẽ", options: ["giảm dần.", "tăng dần.", "không đổi.", "bằng không."], correct: 0, explanation: "<b>Giải thích:</b> Rơi xuống $\Rightarrow h$ giảm dần $\Rightarrow W_t = Ph$ giảm dần." },
-            { id: 3.12, level: "Thông hiểu", question: "Máy bay bay ngang ở độ cao không đổi, nếu thả bớt hàng hóa thì thế năng trọng trường sẽ", options: ["tăng.", "giảm.", "không đổi.", "bằng không."], correct: 1, explanation: "<b>Giải thích:</b> Thả hàng $\Rightarrow m$ giảm. Với $h$ không đổi, $W_t = mgh$ phải giảm." },
-            { id: 3.13, level: "Thông hiểu", question: "Yếu tố nào KHÔNG làm thay đổi thế năng trọng trường?", options: ["Khối lượng.", "Độ cao.", "Tốc độ.", "Vị trí mốc."], correct: 2, explanation: "<b>Giải thích:</b> Công thức $W_t = mgh$ không chứa $v$ (tốc độ)." },
-            { id: 3.14, level: "Thông hiểu", question: "Nước đỉnh thác cao có khả năng thực hiện công lớn khi chảy xuống vì", options: ["có thế năng lớn.", "có tốc độ lớn.", "khối lượng lớn hơn.", "nhiệt độ cao."], correct: 0, explanation: "<b>Giải thích:</b> Độ cao lớn tạo ra thế năng trọng trường tích lũy lớn." },
-            { id: 3.15, level: "Thông hiểu", question: "Bình 1 đầy nước, bình 2 nửa nước đặt cùng độ cao. So sánh thế năng?", options: ["Bình 1 > Bình 2.", "Bình 2 > Bình 1.", "Bằng nhau.", "Bằng không."], correct: 0, explanation: "<b>Giải thích:</b> Bình 1 nặng hơn ($m_1 > m_2$) nên $W_{t1} > W_{t2}$." },
+            { id: 3.12, level: "Thông hiểu", question: "Máy bay bay ngang ở độ cao không đổi, nếu thả bớt hàng hóa thì thế năng trọng trường sẽ", options: ["tăng.", "giảm.", "không đổi.", "bằng không."], correct: 1, explanation: "<b>Giải thích:</b> Thả hàng $\Rightarrow m$ máy bay giảm $\Rightarrow W_t = mgh$ giảm." },
+            { id: 3.13, level: "Thông hiểu", question: "Yếu tố nào KHÔNG làm thay đổi thế năng trọng trường?", options: ["Khối lượng.", "Độ cao.", "Tốc độ.", "Vị trí mốc."], correct: 2, explanation: "<b>Giải thích:</b> Công thức $W_t = mgh$ không chứa tốc độ $v$." },
+            { id: 3.14, level: "Thông hiểu", question: "Nước đỉnh thác cao có khả năng thực hiện công lớn khi chảy xuống vì", options: ["có thế năng lớn.", "có tốc độ lớn.", "khối lượng lớn hơn.", "nhiệt độ cao."], correct: 0, explanation: "<b>Giải thích:</b> Ở độ cao lớn, nước tích lũy nguồn thế năng khổng lồ." },
+            { id: 3.15, level: "Thông hiểu", question: "Bình 1 đầy nước, bình 2 nửa nước đặt cùng độ cao. So sánh thế năng?", options: ["Bình 1 > Bình 2.", "Bình 2 > Bình 1.", "Bằng nhau.", "Bằng không."], correct: 0, explanation: "<b>Giải thích:</b> Bình 1 nặng hơn nên thế năng lớn hơn (cùng $h$)." },
             { id: 3.16, level: "Thông hiểu", question: "Vật chuyển động trên mặt đất (chọn đất làm mốc) thì cơ năng", options: ["bằng động năng.", "bằng thế năng.", "bằng không.", "nhỏ hơn động năng."], correct: 0, explanation: "<b>Giải thích:</b> $h = 0 \Rightarrow W_t = 0 \Rightarrow W = W_đ$." },
-            { id: 3.17, level: "Vận dụng", question: "VĐV 70kg chạy 4m/s. Động năng là bao nhiêu?", options: ["280 J.", "140 J.", "560 J.", "1120 J."], correct: 2, explanation: "<b>Tính toán:</b> $W_đ = 0,5 \cdot 70 \cdot 4^2 = 560$ J." },
-            { id: 3.18, level: "Vận dụng", question: "Hòn đá 20N ở cao 3m. Thế năng là bao nhiêu?", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "<b>Tính toán:</b> $W_t = P \cdot h = 20 \cdot 3 = 60$ J." },
-            { id: 3.19, level: "Vận dụng", question: "Xe đồ chơi 2kg có động năng 16J. Tốc độ xe là bao nhiêu?", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "<b>Tính toán:</b> $16 = 0,5 \cdot 2 \cdot v^2 \Rightarrow v^2 = 16 \Rightarrow v = 4$ m/s." },
-            { id: 3.20, level: "Vận dụng", question: "Vật 1kg có thế năng 50J. Biết g=10. Độ cao h là bao nhiêu?", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "<b>Tính toán:</b> $P = 10 \cdot 1 = 10$ N. $h = 50 / 10 = 5$ m." },
-            { id: 3.21, level: "Vận dụng", question: "Bóng 500g bay 2m/s ở cao 1,5m. Biết P = 5N. Cơ năng là bao nhiêu?", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "<b>Tính toán:</b> $W_đ = 0,5 \cdot 0,5 \cdot 2^2 = 1$ J. $W_t = 5 \cdot 1,5 = 7,5$ J. $W = 1 + 7,5 = 8,5$ J." },
-            { id: 3.22, level: "Vận dụng", question: "Thả bóng từ trên cao xuống sàn, có sự chuyển hóa như thế nào?", options: ["Động năng sang thế năng.", "Thế năng sang động năng.", "Nhiệt năng sang cơ năng.", "Cơ năng sang hóa năng."], correct: 1, explanation: "<b>Tại sao đúng:</b> Rơi xuống $\Rightarrow h$ giảm (thế năng giảm) và vận tốc $v$ tăng (động năng tăng). Vậy thế năng đã chuyển thành động năng.<br><b>Sai:</b> Trái với diễn biến thực tế của vật rơi." },
-            { id: 3.23, level: "Vận dụng", question: "Đạp xe lên dốc chậm dần. Khi đó", options: ["động năng giảm, thế năng tăng.", "động năng tăng, thế năng giảm.", "cùng tăng.", "cùng giảm."], correct: 0, explanation: "<b>Tại sao đúng:</b> Lên cao $\Rightarrow h$ tăng $\Rightarrow W_t$ tăng; đi chậm lại $\Rightarrow v$ giảm $\Rightarrow W_đ$ giảm.<br><b>Sai:</b> Trái với xu hướng thay đổi của độ cao và vận tốc." },
-            { id: 3.24, level: "Vận dụng", question: "Tại sao đập thủy điện xây rất cao và tích nước phía trên?", options: ["Cho đẹp.", "Tăng thế năng để tạo động năng mạnh quay tuabin.", "Nuôi cá.", "Tiết kiệm đất."], correct: 1, explanation: "<b>Tại sao đúng:</b> Đập cao tích trữ thế năng cực lớn, khi xả sẽ chuyển thành động năng mạnh đẩy tuabin máy phát điện.<br><b>Sai:</b> Các ý khác là lợi ích thứ yếu, không phải mục tiêu kỹ thuật chính." }
+            { id: 3.17, level: "Vận dụng", question: "Một VĐV khối lượng 70 kg đang chạy tốc độ 4 m/s. Động năng là", options: ["280 J.", "140 J.", "560 J.", "1120 J."], correct: 2, explanation: "<b>Lời giải:</b> $W_đ = 0,5 \cdot 70 \cdot 4^2 = 560$ J." },
+            { id: 3.18, level: "Vận dụng", question: "Một hòn đá trọng lượng 20 N ở cao 3 m. Thế năng là", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "<b>Lời giải:</b> $W_t = 20 \cdot 3 = 60$ J." },
+            { id: 3.19, level: "Vận dụng", question: "Xe nặng 2 kg có động năng 16 J. Tốc độ xe là", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "<b>Lời giải:</b> $16 = 0,5 \cdot 2 \cdot v^2 \Rightarrow v^2 = 16 \Rightarrow v = 4$ m/s." },
+            { id: 3.20, level: "Vận dụng", question: "Vật 1 kg có thế năng 50 J. Biết g=10. Độ cao h là", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "<b>Tính toán:</b> $P = 10 \cdot 1 = 10$ N. $h = 50 / 10 = 5$ m." },
+            { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g bay 2 m/s ở cao 1,5 m. P=5N. Cơ năng là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "<b>Tính toán:</b> $W_đ=1$ J, $W_t=7,5$ J $\Rightarrow W=8,5$ J." },
+            { id: 3.22, level: "Vận dụng", question: "Thả bóng từ cao xuống, năng lượng chuyển hóa thế nào?", options: ["Động sang thế.", "Thế sang động.", "Nhiệt sang cơ.", "Cơ sang hóa."], correct: 1, explanation: "<b>Giải thích:</b> Rơi xuống $\Rightarrow h$ giảm, $v$ tăng $\Rightarrow$ thế năng chuyển thành động năng." },
+            { id: 3.23, level: "Vận dụng", question: "Đạp xe lên dốc chậm dần. Khi đó", options: ["Động giảm, thế tăng.", "Động tăng, thế giảm.", "Cùng tăng.", "Cùng giảm."], correct: 0, explanation: "<b>Giải thích:</b> Lên cao $h$ tăng, đi chậm $v$ giảm." },
+            { id: 3.24, level: "Vận dụng", question: "Tại sao đập thủy điện xây rất cao?", options: ["Để nước chảy đẹp.", "Tạo thế năng lớn quay tuabin.", "Nuôi cá.", "Tiết kiệm đất."], correct: 1, explanation: "<b>Giải thích:</b> Độ cao lớn tạo thế năng cực lớn để phát điện hiệu quả." }
         ],
         truefalse: [
-            { id: 3.25, level: "Biết-Hiểu", context: "Một bạn nhỏ đang chơi xích đu, khi xích đu chuyển động từ vị trí cao nhất về vị trí thấp nhất.", statements: ["Tại vị trí cao nhất, xích đu có thế năng trọng trường lớn nhất.", "Khi chuyển động từ cao xuống thấp, thế năng giảm dần và động năng tăng dần.", "Tại vị trí thấp nhất, cơ năng của xích đu bằng không.", "Thế năng của xích đu chỉ phụ thuộc vào cân nặng mà không phụ thuộc độ cao."], pattern: [true, true, false, false], explanations: ["a) Đúng vì tại vị trí cao nhất $h$ là cực đại.", "b) Đúng vì có sự chuyển hóa từ thế năng sang động năng.", "c) Sai vì tại vị trí thấp nhất $v$ cực đại nên động năng lớn nhất $\\Rightarrow$ cơ năng khác 0.", "d) Sai vì thế năng $W_t = Ph$ phụ thuộc cả $P$ và $h$."] },
-            { id: 3.26, level: "Biết-Vận dụng", context: "Một vật có khối lượng 4 kg đang chuyển động trên mặt sàn nằm ngang với tốc độ 3 m/s.", statements: ["Động năng của vật có giá trị là 18 J.", "Vì vật chuyển động trên mặt sàn nên cơ năng của vật luôn bằng không.", "Nếu tốc độ của vật tăng lên gấp đôi thì động năng tăng lên gấp bốn lần.", "Công thức tính động năng của vật là $W_đ = 0,5mv^2$."], pattern: [true, false, true, true], explanations: ["a) Đúng: $W_đ = 0,5 \\cdot 4 \\cdot 3^2 = 18$ J.", "b) Sai vì vật đang chuyển động nên có cơ năng bằng động năng.", "c) Đúng vì động năng tỉ lệ với bình phương vận tốc.", "d) Đúng: Đây là công thức SGK."] },
-            { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200 g ở độ cao 3 m so với mặt đất (trọng lượng 2 N).", statements: ["Quả táo đang có thế năng trọng trường là 6 J.", "Vì quả táo nằm yên nên cơ năng của quả táo bằng không.", "Nếu quả táo bị rơi, cơ năng của quả táo (bỏ qua sức cản) là không đổi.", "Thế năng của quả táo tăng dần khi nó rơi gần đến mặt đất."], pattern: [true, false, true, false], explanations: ["a) Đúng: $W_t = 2 \\cdot 3 = 6$ J.", "b) Sai vì táo có độ cao nên có thế năng $\\Rightarrow$ cơ năng bằng thế năng.", "c) Đúng theo định luật bảo toàn cơ năng.", "d) Sai vì càng rơi thấp thì độ cao giảm $\\Rightarrow$ thế năng giảm."] },
-            { id: 3.28, level: "Biết-Vận dụng", context: "Vận động viên 600 N đứng yên trên bục nhảy cao 10 m.", statements: ["Thế năng của vận động viên là 6000 J.", "Nếu vận động viên nhảy xuống, tại mặt nước thế năng của người đó là 600 J.", "Công thức xác định thế năng trọng trường là $W_t=Ph$.", "Động năng của vận động viên khi đứng yên trên bục nhảy là 6000 J."], pattern: [true, false, true, false], explanations: ["a) Đúng: $W_t = 600 \\cdot 10 = 6000$ J.", "b) Sai vì tại mặt nước là mốc thế năng $\\Rightarrow W_t = 0$.", "c) Đúng.", "d) Sai vì đứng yên thì $v=0 \\Rightarrow W_đ = 0$."] }
+            { id: 3.25, level: "Biết-Hiểu", context: "Bạn nhỏ chơi xích đu từ cao nhất về thấp nhất.", statements: ["Tại vị trí cao nhất thế năng lớn nhất.", "Xuống thấp thế năng giảm, động năng tăng.", "Tại thấp nhất cơ năng bằng không.", "Thế năng chỉ phụ thuộc khối lượng."], pattern: [true, true, false, false], explanations: ["a) Đúng ($h$ max).", "b) Đúng (chuyển hóa).", "c) Sai (vẫn có động năng).", "d) Sai (phụ thuộc cả h)."] },
+            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4 kg đang chuyển động ngang với tốc độ 3 m/s.", statements: ["Động năng của vật có giá trị là 18 J.", "Vì vật chuyển động trên mặt sàn nên cơ năng luôn bằng không.", "Nếu tốc độ gấp đôi thì động năng gấp bốn.", "Công thức tính động năng là $W_đ = 0,5mv^2$."], pattern: [true, false, true, true], explanations: ["a) Đúng ($0,5 \cdot 4 \cdot 9$).", "b) Sai (W > 0).", "c) Đúng ($v^2$).", "d) Đúng."] },
+            { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200 g (P=2N) ở cao 3 m đứng yên.", statements: ["Thế năng là 6 J.", "Cơ năng bằng không.", "Nếu rơi (không ma sát) cơ năng bảo toàn.", "Càng rơi thấp thế năng càng tăng."], pattern: [true, false, true, false], explanations: ["a) Đúng.", "b) Sai (có Wt).", "c) Đúng.", "d) Sai (h giảm)."] },
+            { id: 3.28, level: "Biết-Vận dụng", context: "VĐV 600 N ở bục nhảy cao 10 m.", statements: ["Thế năng của người là 6000 J.", "Tại mặt nước thế năng là 600 J.", "Công thức thế năng là $W_t = Ph$.", "Đứng yên động năng là 6000 J."], pattern: [true, false, true, false], explanations: ["a) Đúng.", "b) Sai (h=0).", "c) Đúng.", "d) Sai (v=0)."] }
         ],
         short: [
-            { id: 3.33, level: "Vận dụng", question: "Một vật có khối lượng 5 kg đang chuyển động với tốc độ 4 m/s. Động năng của vật là bao nhiêu joule?", answer: "40", explanation: "<b>Lời giải chi tiết:</b> Áp dụng công thức $W_đ = \\frac{1}{2}mv^2$. Thay số: $W_đ = 0,5 \\cdot 5 \\cdot 4^2 = 0,5 \\cdot 5 \\cdot 16 = 40$ J." },
-            { id: 3.34, level: "Vận dụng", question: "Một vật có trọng lượng 150 N được đưa lên độ cao 2 m. Thế năng trọng trường là bao nhiêu joule?", answer: "300", explanation: "<b>Lời giải chi tiết:</b> Áp dụng công thức $W_t = Ph$. Thay số: $W_t = 150 \\cdot 2 = 300$ J." },
-            { id: 3.35, level: "Vận dụng", question: "Tại một thời điểm, động năng của vật là 25 J và thế năng là 45 J. Cơ năng của vật là bao nhiêu joule?", answer: "70", explanation: "<b>Lời giải chi tiết:</b> Áp dụng định nghĩa $W = W_đ + W_t$. Thay số: $W = 25 + 45 = 70$ J." },
-            { id: 3.37, level: "Hiểu", question: "Nhận định đúng về cơ năng:\n1. Thế năng tỉ lệ thuận khối lượng.\n2. Tốc độ càng lớn động năng luôn càng lớn.\n3. Động năng có thể âm.\n4. Thế năng phụ thuộc mốc.\n5. Cơ năng có đơn vị là N.\n6. Vật nằm yên trên đất cơ năng luôn 0.\n7. Khi vật rơi, thế năng chuyển hóa thành động năng.\n8. $W = W_đ + W_t$.\nNhập dãy số nhận định ĐÚNG tăng dần.", answer: "1478", explanation: "<b>Lời giải chi tiết:</b> Ý 1, 4, 7, 8 đúng bản chất vật lí. Các ý còn lại sai: 2 (thiếu khối lượng); 3 (Wđ không âm); 5 (đơn vị là Joule); 6 (WT phụ thuộc mốc)." }
+            { id: 3.33, level: "Vận dụng", question: "Vật 5 kg chạy 4 m/s. Động năng là bao nhiêu Joule?", answer: "40", explanation: "<b>Lời giải:</b> $W_đ = 0,5 \cdot 5 \cdot 16 = 40$ J." },
+            { id: 3.34, level: "Vận dụng", question: "Vật 150 N ở cao 2 m. Thế năng là bao nhiêu Joule?", answer: "300", explanation: "<b>Lời giải:</b> $W_t = 150 \cdot 2 = 300$ J." },
+            { id: 3.35, level: "Vận dụng", question: "Wđ = 25 J, Wt = 45 J. Cơ năng là bao nhiêu Joule?", answer: "70", explanation: "<b>Lời giải:</b> $W = 25 + 45 = 70$ J." },
+            { id: 3.37, level: "Hiểu", question: "Nhận định đúng:\n1.Wt tỉ lệ thuận m.\n2.v tăng Wđ luôn tăng.\n3.Wđ có thể âm.\n4.Wt phụ thuộc mốc.\n5.Đơn vị W là N.\n6.Trên đất cơ năng luôn 0.\n7.Rơi: Wt sang Wđ.\n8.W=Wđ+Wt.\nDãy số đúng tăng dần?", answer: "1478", explanation: "<b>Lời giải:</b> Ý 1, 4, 7, 8 đúng." }
         ]
     };
 
-    // --- LOGIC ENGINE ---
-    const showModal = (t, b) => { 
-        document.getElementById('modal-title').innerText = t; 
-        document.getElementById('modal-body').innerText = b; 
-        document.getElementById('custom-modal').style.display = 'flex'; 
-    };
+    // --- GAME ENGINE ---
+    const showModal = (t, b) => { document.getElementById('modal-title').innerText = t; document.getElementById('modal-body').innerText = b; document.getElementById('custom-modal').style.display = 'flex'; };
     const closeModal = () => document.getElementById('custom-modal').style.display = 'none';
     const playSound = (t) => { try { document.getElementById('sound-'+t).play(); } catch(e) {} };
 
@@ -371,9 +360,9 @@
             class: document.getElementById('input-class').value.trim(),
             school: document.getElementById('input-school').value.trim()
         };
-        if(!user.name || !user.sbd) { showModal("LỖI NHẬP LIỆU", "Vui lòng nhập đầy đủ Họ tên và Số báo danh!"); return; }
+        if(!user.name || !user.sbd) { showModal("LỖI NHẬP LIỆU", "Vui lòng nhập đủ Họ tên và SBD!"); return; }
         
-        try { await signInAnonymously(auth); } catch(e) { console.error("Xác thực Cloud thất bại", e); }
+        try { await signInAnonymously(auth); } catch(e) {}
 
         localStorage.setItem('quiz_user', JSON.stringify(user));
         gameMode = mode; isFinished = false; isSavingLock = false;
@@ -387,11 +376,11 @@
         document.getElementById('user-bar').style.display = 'flex';
         document.getElementById('display-user').innerText = `Thí sinh: ${user.name} - Lớp: ${user.class}`;
         
-        if(mode === 'exam') {
-            document.getElementById('exam-warning').style.display = 'block';
-            document.documentElement.requestFullscreen().catch(() => {});
-            document.addEventListener("visibilitychange", handleCheat);
-        }
+        // Phát nhạc nhac-nen.mp3
+        const m = document.getElementById('bg-music');
+        m.volume = 0.4;
+        m.play().catch(() => console.log("Bạn cần đặt file nhac-nen.mp3 vào cùng thư mục."));
+
         renderQuestion();
         startTimer();
     };
@@ -401,15 +390,11 @@
         let p2 = [...BANK.truefalse].sort(() => 0.5 - Math.random()).slice(0, 4);
         let p3 = [...BANK.short].sort(() => 0.5 - Math.random()).slice(0, 4);
         p1.forEach(q => {
-            let opts = q.options.map((o, i) => ({ text: o, originalIdx: i }));
-            opts.sort(() => 0.5 - Math.random());
-            q.shuffledOptions = opts;
-            q.shuffledCorrect = opts.findIndex(o => o.originalIdx === q.correct);
+            q.shOptions = q.options.map((o, i) => ({ text: o, originalIdx: i })).sort(() => 0.5 - Math.random());
+            q.shCorrect = q.shOptions.findIndex(o => o.originalIdx === q.correct);
         });
         p2.forEach(q => {
-            let stmts = q.statements.map((s, i) => ({ text: s, originalVal: q.pattern[i] }));
-            stmts.sort(() => 0.5 - Math.random());
-            q.shuffledStatements = stmts;
+            q.shStmts = q.statements.map((s, i) => ({ text: s, originalVal: q.pattern[i] })).sort(() => 0.5 - Math.random());
         });
         return [...p1, ...p2, ...p3];
     };
@@ -422,21 +407,21 @@
         const num = currentIdx < 12 ? (currentIdx + 1) : (currentIdx < 16 ? (currentIdx - 11) : (currentIdx - 15));
         
         html += `<div class="question-slide"><div class="question-meta">${part} - CÂU ${num} [${q.level}]</div>`;
-        if(q.shuffledOptions) {
+        if(q.shOptions) {
             html += `<div class="question-text">${q.question}</div><div class="options-list">`;
-            q.shuffledOptions.forEach((opt, i) => {
-                html += `<div class="option-item ${userAnswers[currentIdx] === i ? 'selected' : ''}" onclick="window.selectMCQ(${i})">
+            q.shOptions.forEach((opt, i) => {
+                html += `<div class="option-item ${userAnswers[currentIdx] === i ? 'selected' : ''}" onclick="window.selMCQ(${i})">
                     <div class="option-label">${String.fromCharCode(65+i)}</div><div>${opt.text}</div></div>`;
             });
             html += `</div>`;
-        } else if(q.shuffledStatements) {
+        } else if(q.shStmts) {
             html += `<div class="question-text">${q.context}</div><div class="tf-container">`;
-            q.shuffledStatements.forEach((stmt, i) => {
+            q.shStmts.forEach((stmt, i) => {
                 const ans = userAnswers[currentIdx] ? userAnswers[currentIdx][i] : null;
                 html += `<div class="tf-row"><div class="tf-text">${String.fromCharCode(97+i)}) ${stmt.text}</div>
                     <div class="tf-btns">
-                        <button class="tf-btn ${ans === true ? 'active-true' : ''}" onclick="window.selectTF(${i}, true)">Đúng</button>
-                        <button class="tf-btn ${ans === false ? 'active-false' : ''}" onclick="window.selectTF(${i}, false)">Sai</button>
+                        <button class="tf-btn ${ans === true ? 'active-true' : ''}" onclick="window.selTF(${i}, true)">Đúng</button>
+                        <button class="tf-btn ${ans === false ? 'active-false' : ''}" onclick="window.selTF(${i}, false)">Sai</button>
                     </div></div>`;
             });
             html += `</div>`;
@@ -450,8 +435,8 @@
         if(window.MathJax) MathJax.typesetPromise();
     };
 
-    window.selectMCQ = (idx) => { if(isFinished) return; userAnswers[currentIdx] = idx; playSound('ping'); renderQuestion(); };
-    window.selectTF = (i, v) => { if(isFinished) return; if(!userAnswers[currentIdx]) userAnswers[currentIdx] = {}; userAnswers[currentIdx][i] = v; playSound('ping'); renderQuestion(); };
+    window.selMCQ = (idx) => { if(isFinished) return; userAnswers[currentIdx] = idx; playSound('ping'); renderQuestion(); };
+    window.selTF = (i, v) => { if(isFinished) return; if(!userAnswers[currentIdx]) userAnswers[currentIdx] = {}; userAnswers[currentIdx][i] = v; playSound('ping'); renderQuestion(); };
     window.saveShort = (v) => { if(isFinished) return; userAnswers[currentIdx] = v; };
 
     const startTimer = () => {
@@ -471,13 +456,6 @@
         document.getElementById('timer-display').innerText = `${m}:${s<10?'0'+s:s}`;
     };
 
-    const handleCheat = () => {
-        if(gameMode === 'exam' && !isFinished && !isSavingLock) {
-            isFinished = true; showModal("CẢNH BÁO", "Bạn đã rời khỏi trang làm bài. Hệ thống tự động nộp bài ngay lập tức.");
-            setTimeout(finishQuiz, 1500);
-        }
-    };
-
     window.nextQ = () => { if(currentIdx < 19) { currentIdx++; renderQuestion(); resetTimer(); } };
     window.prevQ = () => { if(currentIdx > 0) { currentIdx--; renderQuestion(); resetTimer(); } };
 
@@ -485,15 +463,15 @@
         if(isSavingLock) return;
         isFinished = true; isSavingLock = true;
         clearInterval(timerInterval); playSound('finish');
-        if(document.fullscreenElement) document.exitFullscreen();
-        
+        document.getElementById('bg-music').pause();
+
         const duration = Math.floor((Date.now() - quizStartTime) / 1000);
         let score = 0;
         currentQuestions.forEach((q, idx) => {
             const ans = userAnswers[idx];
-            if(idx < 12) { if(ans === q.shuffledCorrect) score += 0.25; }
+            if(idx < 12) { if(ans === q.shCorrect) score += 0.25; }
             else if(idx < 16) {
-                let c = 0; q.shuffledStatements.forEach((s, si) => { if(ans && ans[si] === s.originalVal) c++; });
+                let c = 0; q.shStmts.forEach((s, si) => { if(ans && ans[si] === s.originalVal) c++; });
                 score += [0, 0.0625, 0.125, 0.25, 0.5][c];
             } else { if(ans && ans.toString().trim().toLowerCase() === q.answer.toLowerCase()) score += 0.5; }
         });
@@ -506,20 +484,18 @@
         document.getElementById('result-score').innerText = finalScore;
         document.getElementById('result-rank').innerText = score>=6?"XUẤT SẮC":score>=5?"GIỎI":score>=4?"KHÁ":score>=3?"ĐẠT":"CHƯA ĐẠT";
 
-        const cloudStatus = document.getElementById('cloud-status');
-        cloudStatus.className = 'status-syncing';
-        cloudStatus.innerText = '☁️ Đang đồng bộ kết quả lên Cloud...';
+        const cloud = document.getElementById('cloud-status');
+        cloud.className = 'status-syncing'; cloud.innerText = '☁️ Đang đồng bộ kết quả lên Cloud...';
 
-        if (currentUser) {
+        if (auth.currentUser) {
             try {
                 await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'results'), {
                     sbd: user.sbd, name: user.name, class: user.class, school: user.school,
                     score: parseFloat(finalScore), timestamp: serverTimestamp(),
                     duration: duration, details: JSON.stringify({ qs: currentQuestions, ans: userAnswers })
                 });
-                cloudStatus.className = 'status-success';
-                cloudStatus.innerText = '✅ Đã lưu dữ liệu thành công lên hệ thống Cloud';
-            } catch (e) { cloudStatus.className = 'status-error'; cloudStatus.innerText = '❌ Lỗi Cloud. Hãy báo giáo viên.'; }
+                cloud.className = 'status-success'; cloud.innerText = '✅ Đã lưu kết quả thành công lên Cloud';
+            } catch (e) { cloud.className = 'status-error'; cloud.innerText = '❌ Lỗi Cloud. Hãy báo giáo viên.'; }
         }
 
         renderHistory(currentQuestions, userAnswers, 'result-history');
@@ -530,12 +506,11 @@
         qs.forEach((q, i) => {
             const ua = as[i];
             h += `<div class="history-item"><span class="history-item-q">Câu ${i+1}: ${q.question || q.context}</span>`;
-            if(q.shuffledOptions) {
-                const ct = q.shuffledOptions[q.shuffledCorrect].text;
-                const ut = ua !== null ? q.shuffledOptions[ua].text : "Bỏ trống";
-                h += `Chọn: <span class="${ua===q.shuffledCorrect?'correct-ans':'wrong-ans'}">${ut}</span> | Đúng: <span class="correct-ans">${ct}</span>`;
-            } else if(q.shuffledStatements) {
-                q.shuffledStatements.forEach((s, si) => {
+            if(q.shOptions) {
+                const ut = ua !== null ? q.shOptions[ua].text : "Bỏ trống";
+                h += `Chọn: <span class="${ua===q.shCorrect?'correct-ans':'wrong-ans'}">${ut}</span> | Đúng: <span class="correct-ans">${q.shOptions[q.shCorrect].text}</span>`;
+            } else if(q.shStmts) {
+                q.shStmts.forEach((s, si) => {
                     const uv = ua ? ua[si] : null;
                     h += `<div style="font-size:0.9rem; margin-top:4px;">- ${s.text}: <b>${uv===null?'...':(uv?'Đúng':'Sai')}</b> (Đáp án: <b>${s.originalVal?'Đúng':'Sai'}</b>) ${uv===s.originalVal?'✅':'❌'}</div>`;
                 });
@@ -560,7 +535,7 @@
             sel.innerHTML = '<option value="all">Tất cả lớp</option>';
             [...cls].sort().forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
             renderAdminTable();
-        } catch(e) { content.innerHTML = '<p style="color:red; text-align:center;">Lỗi kết nối database.</p>'; }
+        } catch(e) { content.innerHTML = '<p style="color:red; text-align:center;">Lỗi kết nối.</p>'; }
     };
 
     const renderAdminTable = () => {
@@ -570,17 +545,17 @@
         data.sort((a, b) => {
             if(sort === 'score') return b.score - a.score;
             if(sort === 'timeNew') return (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0);
-            if(sort === 'class') return (a.class || "").localeCompare(b.class || "");
-            if(sort === 'sbd') return (a.sbd || "").localeCompare(b.sbd || "");
+            if(sort === 'class') return (a.class||"").localeCompare(b.class||"");
+            if(sort === 'sbd') return (a.sbd||"").localeCompare(b.sbd||"");
             if(sort === 'duration') return (a.duration || 9999) - (b.duration || 9999);
             return 0;
         });
-        let h = `<table class="admin-table"><thead><tr><th>Hạng</th><th>SBD</th><th>Lớp</th><th>Họ và Tên</th><th>Trường</th><th>Điểm</th><th>TG làm</th><th>Ngày nộp</th><th>Thao tác</th></tr></thead><tbody>`;
+        let h = `<table class="admin-table"><thead><tr><th>Hạng</th><th>SBD</th><th>Lớp</th><th>Họ Tên</th><th>Trường</th><th>Điểm</th><th>TG làm</th><th>Ngày nộp</th><th>Thao tác</th></tr></thead><tbody>`;
         data.forEach((r, i) => {
             const dt = r.timestamp ? new Date(r.timestamp.seconds * 1000).toLocaleString('vi-VN') : 'N/A';
-            h += `<tr><td><b>${i+1}</b></td><td>${r.sbd}</td><td>${r.class}</td><td style="text-align:left; font-weight:600;">${r.name}</td><td style="font-size:0.8rem">${r.school||''}</td><td class="score-val">${r.score.toFixed(2)}</td><td>${r.duration}s</td><td style="font-size:0.75rem">${dt}</td><td><div class="action-btns"><button class="btn-sm btn-view" style="background:#17a2b8; color:white; border:none; cursor:pointer;" onclick="window.viewRec('${r.id}')">Xem</button><button class="btn-sm btn-delete" style="background:#dc3545; color:white; border:none; cursor:pointer;" onclick="window.delRec('${r.id}')">Xoá</button></div></td></tr>`;
+            h += `<tr><td><b>${i+1}</b></td><td>${r.sbd}</td><td>${r.class}</td><td style="text-align:left; font-weight:600;">${r.name}</td><td style="font-size:0.8rem">${r.school||''}</td><td class="score-val">${r.score.toFixed(2)}</td><td>${r.duration}s</td><td style="font-size:0.75rem">${dt}</td><td><div style="display:flex; gap:5px; justify-content:center;"><button class="btn-sm" style="background:#17a2b8; color:white; border:none; cursor:pointer;" onclick="window.viewRec('${r.id}')">Xem</button><button class="btn-sm" style="background:#dc3545; color:white; border:none; cursor:pointer;" onclick="window.delRec('${r.id}')">Xoá</button></div></td></tr>`;
         });
-        document.getElementById('admin-results-content').innerHTML = data.length ? h + '</tbody></table>' : '<p style="padding:20px; text-align:center;">Không có dữ liệu.</p>';
+        document.getElementById('admin-results-content').innerHTML = data.length ? h + '</tbody></table>' : '<p style="padding:20px; text-align:center;">Trống.</p>';
     };
 
     window.viewRec = (id) => {
@@ -591,19 +566,13 @@
         renderHistory(d.qs || d.questions, d.ans || d.answers, 'review-body');
     };
 
-    window.delRec = async (id) => { if(confirm("Bạn muốn xóa vĩnh viễn kết quả này của học sinh?")) { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', id)); loadAdminData(); } };
+    window.delRec = async (id) => { if(confirm("Xóa vĩnh viễn kết quả này?")) { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'results', id)); loadAdminData(); } };
 
     // --- SETUP HANDLERS ---
     document.getElementById('btn-practice').onclick = () => startApp('practice');
     document.getElementById('btn-exam').onclick = () => startApp('exam');
-    document.getElementById('btn-next').onclick = window.nextQ;
-    document.getElementById('btn-prev').onclick = window.prevQ;
-    document.getElementById('btn-submit').onclick = () => confirm("Bạn chắc chắn muốn nộp bài?") && finishQuiz();
     document.getElementById('btn-close-modal').onclick = closeModal;
-    document.getElementById('btn-open-admin').onclick = () => {
-        document.getElementById('modal-admin-login').style.display = 'flex';
-        document.getElementById('admin-password').focus();
-    };
+    document.getElementById('btn-open-admin').onclick = () => document.getElementById('modal-admin-login').style.display = 'flex';
     document.getElementById('btn-admin-login-confirm').onclick = () => {
         if(document.getElementById('admin-password').value === 'admin123') {
             document.getElementById('modal-admin-login').style.display = 'none';
@@ -611,11 +580,16 @@
             document.getElementById('screen-admin').classList.add('active');
             document.getElementById('user-bar').style.display = 'none';
             loadAdminData();
-        } else alert("Mật khẩu Admin không chính xác!");
+        } else alert("Mật khẩu Admin sai!");
     };
     document.getElementById('btn-admin-refresh').onclick = loadAdminData;
     document.getElementById('admin-sort').onchange = renderAdminTable;
     document.getElementById('admin-filter-class').onchange = renderAdminTable;
+    document.getElementById('music-toggle').onclick = () => {
+        const m = document.getElementById('bg-music');
+        if(m.paused) { m.play(); document.getElementById('music-toggle').innerText = '🎵'; }
+        else { m.pause(); document.getElementById('music-toggle').innerText = '🔇'; }
+    };
 
     onAuthStateChanged(auth, u => { currentUser = u; });
     window.onload = () => { const s = localStorage.getItem('quiz_user'); if(s) { const u = JSON.parse(s); document.getElementById('input-sbd').value = u.sbd; document.getElementById('input-name').value = u.name; document.getElementById('input-class').value = u.class; document.getElementById('input-school').value = u.school; } };
