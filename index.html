@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3: Cơ năng - KHTN 9</title>
+    <!-- MathJax for LaTeX rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #00509d;
+            --accent-color: #ffca28;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --error: #d32f2f;
+            --success: #388e3c;
+            --text-main: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .screen {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .app-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .user-info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .welcome-title {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .mode-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.2s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-practice { background-color: #eee; color: var(--primary-color); }
+        .btn-exam { background-color: var(--primary-color); color: white; }
+        .btn-next { background-color: var(--secondary-color); color: white; flex: 1; }
+        .btn-prev { background-color: #ccc; color: #333; margin-right: 10px; }
+        .btn-submit { background-color: var(--error); color: white; margin-left: 10px; }
+
+        .btn:active { transform: scale(0.98); }
+
+        .warning-text {
+            color: var(--error);
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .question-slide {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 10px;
+            min-height: 400px;
+        }
+
+        .question-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+            white-space: pre-line;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover { background-color: #f9f9f9; border-color: var(--secondary-color); }
+        .option-item.selected { 
+            background-color: #e3f2fd; 
+            border-color: var(--secondary-color); 
+            font-weight: bold;
+        }
+
+        .option-label {
+            width: 30px;
+            height: 30px;
+            background: #eee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .tf-container {
+            width: 100%;
+        }
+
+        .tf-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tf-text { flex: 1; padding-right: 10px; font-size: 1rem; }
+        
+        .tf-btns {
+            display: flex;
+            gap: 5px;
+        }
+
+        .tf-btn {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: white;
+        }
+
+        .tf-btn.active-true { background: var(--success); color: white; border-color: var(--success); }
+        .tf-btn.active-false { background: var(--error); color: white; border-color: var(--error); }
+
+        .short-answer-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        .nav-bar {
+            display: flex;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .result-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        /* Admin Table Styles */
+        .admin-results-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        .admin-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .admin-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .score-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .score-high { background-color: var(--success); }
+        .score-low { background-color: var(--error); }
+
+        .rank-label {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .app-footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        #custom-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .admin-btn {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.5;
+            background: #ccc;
+            border: none;
+            cursor: pointer;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-header">
+    <h1 style="margin:0; font-size: 1.2rem;">KHOA HỌC TỰ NHIÊN 9 - BÀI 3: CƠ NĂNG</h1>
+</div>
+
+<div id="user-bar" class="user-info-bar" style="display: none;">
+    <span id="display-user">Họ tên: ...</span>
+    <span id="timer-display" style="font-weight: bold; background: rgba(0,0,0,0.2); padding: 2px 10px; border-radius: 5px;">00:00</span>
+</div>
+
+<div class="app-container">
+    <!-- MÀN HÌNH CHÀO MỪNG -->
+    <div id="screen-welcome" class="screen active">
+        <div class="welcome-card">
+            <h2 class="welcome-title">Thông tin thí sinh</h2>
+            <div class="form-group">
+                <label>Số báo danh</label>
+                <input type="text" id="input-sbd" placeholder="Ví dụ: SBD001">
+            </div>
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" id="input-name" placeholder="Nhập đầy đủ họ tên">
+            </div>
+            <div class="form-group">
+                <label>Lớp</label>
+                <input type="text" id="input-class" placeholder="Ví dụ: 9A1">
+            </div>
+            <div class="form-group">
+                <label>Trường</label>
+                <input type="text" id="input-school" placeholder="Ví dụ: THCS Thuỷ Phương">
+            </div>
+
+            <p id="exam-warning" class="warning-text">Cảnh báo quan trọng: “Nếu bạn rời khỏi trang làm bài, hệ thống sẽ tự động nộp bài.”</p>
+
+            <div class="mode-selection">
+                <button class="btn btn-practice" id="btn-practice">LUYỆN TẬP</button>
+                <button class="btn btn-exam" id="btn-exam">LÀM BÀI KIỂM TRA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH LÀM BÀI -->
+    <div id="screen-quiz" class="screen">
+        <div id="question-container"></div>
+        <div class="nav-bar">
+            <button class="btn btn-prev" id="btn-prev">Quay lại</button>
+            <button class="btn btn-next" id="btn-next">Tiếp theo</button>
+            <button class="btn btn-submit" id="btn-submit" style="display: none;">Nộp bài</button>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH KẾT QUẢ -->
+    <div id="screen-result" class="screen">
+        <div class="result-card">
+            <h2 id="result-congrats">Chúc mừng!</h2>
+            <div class="score-circle">
+                <span id="result-score">0.0</span>
+                <span style="font-size: 0.8rem;">/ 7.0</span>
+            </div>
+            <div id="result-rank" class="rank-label">...</div>
+            <button class="btn btn-next" onclick="location.reload()">Làm lại bài</button>
+            <div class="history-list" id="result-history"></div>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH ADMIN -->
+    <div id="screen-admin" class="screen">
+        <div class="welcome-card">
+            <h2 class="welcome-title">BẢNG ĐIỂM HỌC SINH</h2>
+            <button class="btn btn-prev" style="margin-bottom: 15px; width: auto;" onclick="location.reload()">Thoát Admin</button>
+            <div id="admin-results-content" class="admin-results-container">
+                <p>Đang tải dữ liệu...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-footer">Bản quyền thuộc về Trường THCS Thuỷ Phương, Thành phố Huế</div>
+
+<!-- Modal Đăng nhập Admin -->
+<div id="modal-admin-login" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000;">
+    <div class="modal-content" style="max-width: 400px; width: 90%;">
+        <h3>Đăng nhập Admin</h3>
+        <input type="password" id="admin-password" placeholder="Nhập mật khẩu" style="width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px;">
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-next" id="btn-admin-login-confirm">Vào hệ thống</button>
+            <button class="btn btn-prev" onclick="document.getElementById('modal-admin-login').style.display='none'">Hủy</button>
+        </div>
+    </div>
+</div>
+
+<div id="custom-modal">
+    <div class="modal-content">
+        <h3 id="modal-title" style="color: var(--error);">Thông báo</h3>
+        <p id="modal-body">Nội dung thông báo...</p>
+        <button class="btn btn-next" id="btn-close-modal">Đóng</button>
+    </div>
+</div>
+
+<button class="admin-btn" id="btn-open-admin">ADMIND</button>
+
+<audio id="sound-ping" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<audio id="sound-finish" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDg4Q6rsrvPhY31oCpL4DAAjTKlgjJN1c0",
+        authDomain: "khtn9-5c1f4.firebaseapp.com",
+        projectId: "khtn9-5c1f4",
+        storageBucket: "khtn9-5c1f4.firebasestorage.app",
+        messagingSenderId: "498407772914",
+        appId: "1:498407772914:web:d719896d32467a5242366b",
+        measurementId: "G-B6DYXRYX0W"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'khtn9-5c1f4';
+
+    let currentUser = null;
+
+    const initAuth = async () => {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+            await signInAnonymously(auth);
+        }
+    };
+    initAuth();
+    onAuthStateChanged(auth, (user) => { currentUser = user; });
+
+    // GAME DATA & LOGIC
+    const BANK = {
+        mcq: [
+            { id: 3.1, level: "Nhận biết", question: "Đại lượng nào sau đây được định nghĩa là tổng động năng và thế năng của một vật?", options: ["Cơ năng.", "Công cơ học.", "Nhiệt năng.", "Công suất."], correct: 0, explanation: "Đúng theo định nghĩa cơ năng là tổng $W_đ + W_t$." },
+            { id: 3.2, level: "Nhận biết", question: "Công thức tính động năng của một vật có khối lượng $m$ đang chuyển động với tốc độ $v$ là", options: ["$W_đ = mv^2$.", "$W_đ = \\frac{1}{2}mv^2$.", "$W_đ = \\frac{1}{2}mv$.", "$W_đ = 2mv^2$."], correct: 1, explanation: "Công thức chuẩn là $W_đ = \\frac{1}{2}mv^2$." },
+            { id: 3.3, level: "Nhận biết", question: "Một vật có trọng lượng $P$ đang ở độ cao $h$ so với mốc tính thế năng. Thế năng trọng trường $W_t$ của vật được tính theo công thức", options: ["$W_t = \\frac{1}{2}Ph$.", "$W_t = P + h$.", "$W_t = Ph$.", "$W_t = \\frac{P}{h}$."], correct: 2, explanation: "Thế năng trọng trường được tính bằng trọng lượng nhân độ cao: $W_t = Ph$." },
+            { id: 3.4, level: "Nhận biết", question: "Đơn vị của cơ năng, động năng và thế năng trong hệ SI là", options: ["joule (J).", "newton (N).", "watt (W).", "pascal (Pa)."], correct: 0, explanation: "Joule (J) là đơn vị đo năng lượng nói chung và các dạng cơ năng." },
+            { id: 3.5, level: "Nhận biết", question: "Trong công thức $W_đ = \\frac{1}{2}mv^2$, đại lượng $v$ đại diện cho", options: ["thời gian chuyển động.", "quãng đường đi được.", "tốc độ của vật.", "gia tốc của vật."], correct: 2, explanation: "$v$ là kí hiệu tốc độ trong vật lí." },
+            { id: 3.6, level: "Nhận biết", question: "Khi một vật nằm tại vị trí được chọn làm mốc thế năng thì thế năng trọng trường của vật đó bằng", options: ["0 J.", "1 J.", "10 J.", "vô cùng lớn."], correct: 0, explanation: "Tại mốc thế năng thì $h = 0$ nên $W_t = 0$." },
+            { id: 3.7, level: "Nhận biết", question: "Một vật có khối lượng $m$ đang chuyển động, nếu vật dừng lại thì động năng của vật sẽ", options: ["bằng không.", "không thay đổi.", "tăng lên gấp đôi.", "có giá trị âm."], correct: 0, explanation: "Dừng lại nghĩa là tốc độ bằng 0, do đó động năng bằng 0." },
+            { id: 3.8, level: "Nhận biết", question: "Trong công thức tính thế năng trọng trường $W_t = Ph$, đại lượng $h$ là", options: ["khối lượng của vật.", "tốc độ của vật.", "độ cao của vật so với mốc.", "trọng lượng của vật."], correct: 2, explanation: "$h$ là độ cao thẳng đứng tính từ mốc thế năng." },
+            { id: 3.9, level: "Thông hiểu", question: "Nếu giữ nguyên độ cao nhưng tăng khối lượng của vật lên gấp ba lần thì thế năng trọng trường của vật sẽ", options: ["giảm đi ba lần.", "không thay đổi.", "tăng lên gấp ba lần.", "tăng lên gấp chín lần."], correct: 2, explanation: "$W_t$ tỉ lệ thuận với khối lượng $m$. Nếu $m$ tăng 3 lần thì $W_t$ tăng 3 lần." },
+            { id: 3.10, level: "Thông hiểu", question: "Hai vật có khối lượng bằng nhau, vật A ở độ cao 5 m, vật B ở độ cao 10 m so với mặt đất. Nhận định nào sau đây là ĐÚNG?", options: ["Thế năng vật A lớn hơn vật B.", "Thế năng vật B lớn hơn vật A.", "Thế năng hai vật bằng nhau.", "Không so sánh được thế năng."], correct: 1, explanation: "Cùng khối lượng, vật nào ở cao hơn thì có thế năng lớn hơn." },
+            { id: 3.11, level: "Thông hiểu", question: "Khi một quả mít rơi từ trên cây xuống đất, trong quá trình rơi thì thế năng trọng trường của quả mít", options: ["giảm dần.", "tăng dần.", "không đổi.", "bằng không."], correct: 0, explanation: "Khi rơi, độ cao $h$ giảm dần nên $W_t$ giảm dần." },
+            { id: 3.12, level: "Thông hiểu", question: "Một chiếc máy bay đang bay ngang ở độ cao không đổi, nếu máy bay thả bớt hàng hóa xuống thì thế năng trọng trường của máy bay sẽ", options: ["tăng lên.", "giảm xuống.", "không thay đổi.", "bằng không."], correct: 1, explanation: "Thả bớt hàng làm khối lượng $m$ giảm, dẫn đến $W_t$ giảm." },
+            { id: 3.13, level: "Thông hiểu", question: "Yếu tố nào sau đây KHÔNG làm thay đổi thế năng trọng trường của một vật?", options: ["Thay đổi khối lượng.", "Thay đổi độ cao.", "Thay đổi tốc độ.", "Thay đổi vị trí mốc thế năng."], correct: 2, explanation: "Tốc độ chỉ ảnh hưởng đến động năng, không ảnh hưởng đến thế năng trọng trường." },
+            { id: 3.14, level: "Thông hiểu", question: "Tại sao nước ở trên đỉnh thác cao lại có khả năng thực hiện công lớn khi chảy xuống?", options: ["Vì ở trên cao nước có thế năng trọng trường lớn.", "Vì nước ở trên cao có tốc độ rất lớn.", "Vì nước ở trên cao có khối lượng lớn hơn ở dưới.", "Vì nước ở trên cao có nhiệt độ cao."], correct: 0, explanation: "Nước ở trên cao tích lũy năng lượng dưới dạng thế năng trọng trường." },
+            { id: 3.15, level: "Thông hiểu", question: "Hai bình chứa nước giống hệt nhau, bình 1 chứa đầy nước, bình 2 chứa một nửa nước và được đặt cùng một độ cao. So sánh thế năng trọng trường của hai bình nước?", options: ["Bình 1 có thế năng lớn hơn bình 2.", "Bình 2 có thế năng lớn hơn bình 1.", "Hai bình có thế năng bằng nhau.", "Thế năng hai bình đều bằng không."], correct: 0, explanation: "Bình 1 nhiều nước hơn (khối lượng lớn hơn) nên có thế năng lớn hơn." },
+            { id: 3.16, level: "Thông hiểu", question: "Một vật đang chuyển động trên mặt đất (chọn mặt đất làm mốc thế năng) thì cơ năng của vật", options: ["bằng động năng của vật.", "bằng thế năng của vật.", "bằng không.", "nhỏ hơn động năng."], correct: 0, explanation: "Trên mặt đất $W_t = 0$, nên $W = W_đ + W_t = W_đ$." },
+            { id: 3.17, level: "Vận dụng", question: "Một vận động viên khối lượng 70 kg đang chạy với tốc độ 4 m/s. Động năng của vận động viên là", options: ["280 J.", "140 J.", "560 J.", "1120 J."], correct: 2, explanation: "$W_đ = \\frac{1}{2} \\cdot 70 \\cdot 4^2 = 560$ J." },
+            { id: 3.18, level: "Vận dụng", question: "Một hòn đá trọng lượng 20 N được đưa lên độ cao 3 m so với mốc thế năng. Thế năng của hòn đá là", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "$W_t = P \\cdot h = 20 \\cdot 3 = 60$ J." },
+            { id: 3.19, level: "Vận dụng", question: "Một chiếc xe điện đồ chơi nặng 2 kg có động năng 16 J. Tốc độ của xe là", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "$16 = \\frac{1}{2} \\cdot 2 \\cdot v^2 \\Rightarrow v^2 = 16 \\Rightarrow v = 4$ m/s." },
+            { id: 3.20, level: "Vận dụng", question: "Một vật có khối lượng 1 kg có thế năng trọng trường là 50 J. Biết trọng lượng vật gấp 10 lần khối lượng, độ cao của vật so với mốc là", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "$P = 10 \\cdot 1 = 10$ N. $h = W_t / P = 50 / 10 = 5$ m." },
+            { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g được ném lên cao, tại vị trí có tốc độ 2 m/s và độ cao 1,5 m so với mặt đất. Biết trọng lượng quả bóng là 5 N. Cơ năng của quả bóng so với mặt đất là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "$W_đ = \\frac{1}{2} \\cdot 0,5 \\cdot 2^2 = 1$ J. $W_t = 5 \\cdot 1,5 = 7,5$ J. $W = 1 + 7,5 = 8,5$ J." },
+            { id: 3.22, level: "Vận dụng", question: "Khi ta thả một quả bóng từ trên cao xuống mặt sàn, trong quá trình rơi đã có sự chuyển hóa năng lượng như thế nào?", options: ["Động năng chuyển hóa thành thế năng.", "Thế năng chuyển hóa thành động năng.", "Nhiệt năng chuyển hóa thành cơ năng.", "Cơ năng chuyển hóa thành hóa năng."], correct: 1, explanation: "Rơi xuống: độ cao giảm ($W_t$ giảm), tốc độ tăng ($W_đ$ tăng)." },
+            { id: 3.23, level: "Vận dụng", question: "Một người đạp xe lên dốc, tốc độ của xe giảm dần. Khi đó", options: ["động năng giảm, thế năng tăng.", "động năng tăng, thế năng giảm.", "cả động năng và thế năng đều tăng.", "cả động năng và thế năng đều giảm."], correct: 0, explanation: "Lên cao ($W_t$ tăng), đi chậm lại ($W_đ$ giảm)." },
+            { id: 3.24, level: "Vận dụng", question: "Tại sao khi xây dựng các đập thủy điện, người ta phải xây đập rất cao và tích nước ở hồ chứa phía trên?", options: ["Để nước chảy đẹp hơn.", "Để tăng thế năng trọng trường của nước, tạo ra động năng lớn làm quay tuabin."], correct: 1, explanation: "Tăng thế năng nước để sau đó chuyển hóa thành động năng mạnh quay tuabin." }
+        ],
+        truefalse: [
+            { id: 3.25, level: "Biết-Hiểu", context: "Bạn nhỏ chơi xích đu từ cao nhất xuống thấp nhất.", statements: ["Tại cao nhất, thế năng lớn nhất.", "Thế năng giảm và động năng tăng khi xuống thấp.", "Tại thấp nhất cơ năng bằng không.", "Thế năng chỉ phụ thuộc khối lượng."], pattern: [true, true, false, false], explanations: ["Đúng.", "Đúng.", "Sai.", "Sai."] },
+            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4kg, v=3m/s nằm ngang.", statements: ["Động năng là 18 J.", "Cơ năng bằng không.", "Tốc độ gấp đôi thì động năng gấp 4.", "Công thức $W_đ = 0.5mv$."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
+            { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200g ở độ cao 3m.", statements: ["Thế năng là 6 J.", "Cơ năng bằng không.", "Cơ năng bảo toàn khi rơi.", "Thế năng tăng khi rơi."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
+            { id: 3.28, level: "Biết-Vận dụng", context: "VĐV 600N ở bục 10m.", statements: ["Thế năng là 6000 J.", "Tại mặt nước thế năng 600 J.", "Công thức $W_t=Ph$.", "Động năng đứng yên là 6000 J."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] }
+        ],
+        short: [
+            { id: 3.33, level: "Vận dụng", question: "Khối lượng 5 kg, tốc độ 4 m/s. Động năng là bao nhiêu J?", answer: "40", explanation: "0.5 * 5 * 16 = 40 J." },
+            { id: 3.34, level: "Vận dụng", question: "Trọng lượng 150 N, cao 2 m. Thế năng là bao nhiêu J?", answer: "300", explanation: "150 * 2 = 300 J." },
+            { id: 3.35, level: "Vận dụng", question: "Động năng 25 J, thế năng 45 J. Cơ năng là bao nhiêu J?", answer: "70", explanation: "25 + 45 = 70 J." },
+            { id: 3.37, level: "Hiểu", question: "Cho nhận định:\n1. Thế năng tỉ lệ thuận khối lượng.\n2. Tốc độ càng lớn động năng luôn càng lớn.\n3. Động năng có thể âm.\n4. Thế năng phụ thuộc mốc.\n5. Đơn vị cơ năng là N.\n6. Vật nằm yên trên đất cơ năng luôn 0.\n7. Khi rơi, thế năng chuyển hóa thành động năng.\n8. $W = W_đ + W_t$.\nDãy số ĐÚNG tăng dần?", answer: "1478", explanation: "Các ý 1,4,7,8 đúng." }
+        ]
+    };
+
+    let currentQuestions = [];
+    let currentIdx = 0;
+    let userAnswers = [];
+    let gameMode = 'practice';
+    let timerInterval = null;
+    let timeRemaining = 0;
+    let isFinished = false;
+
+    const startApp = (mode) => {
+        const user = {
+            sbd: document.getElementById('input-sbd').value.trim(),
+            name: document.getElementById('input-name').value.trim(),
+            class: document.getElementById('input-class').value.trim(),
+            school: document.getElementById('input-school').value.trim()
+        };
+
+        if(!user.name || !user.sbd) {
+            showModal("Lỗi", "Vui lòng nhập Họ tên và Số báo danh!");
+            return;
+        }
+
+        localStorage.setItem('quiz_user', JSON.stringify(user));
+        gameMode = mode;
+        isFinished = false;
+        
+        currentQuestions = generateQuizSet();
+        userAnswers = new Array(currentQuestions.length).fill(null);
+        currentIdx = 0;
+
+        document.getElementById('screen-welcome').classList.remove('active');
+        document.getElementById('screen-quiz').classList.add('active');
+        document.getElementById('user-bar').style.display = 'flex';
+        document.getElementById('display-user').innerText = `${user.name} - ${user.sbd}`;
+        
+        if(mode === 'exam') {
+            document.documentElement.requestFullscreen().catch(() => {});
+            document.addEventListener("visibilitychange", handleCheat);
+            window.addEventListener("blur", handleCheat);
+        }
+
+        renderQuestion();
+        startTimer();
+    };
+
+    const generateQuizSet = () => {
+        let p1 = [...BANK.mcq].sort(() => 0.5 - Math.random()).slice(0, 12);
+        let p2 = [...BANK.truefalse].sort(() => 0.5 - Math.random()).slice(0, 4);
+        let p3 = [...BANK.short].sort(() => 0.5 - Math.random()).slice(0, 4);
+        
+        p1.forEach(q => {
+            let opts = q.options.map((o, i) => ({ text: o, originalIdx: i }));
+            opts.sort(() => 0.5 - Math.random());
+            q.shuffledOptions = opts;
+            q.shuffledCorrect = opts.findIndex(o => o.originalIdx === q.correct);
+        });
+
+        p2.forEach(q => {
+            let statements = q.statements.map((s, i) => ({ text: s, originalVal: q.pattern[i], originalExp: q.explanations[i] }));
+            statements.sort(() => 0.5 - Math.random());
+            q.shuffledStatements = statements;
+        });
+
+        return [...p1, ...p2, ...p3];
+    };
+
+    const renderQuestion = () => {
+        const container = document.getElementById('question-container');
+        const q = currentQuestions[currentIdx];
+        let html = '';
+        const part = currentIdx < 12 ? "PHẦN I" : (currentIdx < 16 ? "PHẦN II" : "PHẦN III");
+        const num = currentIdx < 12 ? (currentIdx + 1) : (currentIdx < 16 ? (currentIdx - 11) : (currentIdx - 15));
+
+        html += `<div class="question-slide"><div class="question-meta">${part} - Câu ${num} [${q.level}]</div>`;
+
+        if(q.shuffledOptions) {
+            html += `<div class="question-text">${q.question}</div><div class="options-list">`;
+            q.shuffledOptions.forEach((opt, i) => {
+                html += `<div class="option-item ${userAnswers[currentIdx] === i ? 'selected' : ''}" data-idx="${i}">
+                    <div class="option-label">${String.fromCharCode(65+i)}</div><div>${opt.text}</div></div>`;
+            });
+            html += `</div>`;
+        } else if(q.shuffledStatements) {
+            html += `<div class="question-text">${q.context}</div><div class="tf-container">`;
+            q.shuffledStatements.forEach((stmt, i) => {
+                const ans = userAnswers[currentIdx] ? userAnswers[currentIdx][i] : null;
+                html += `<div class="tf-row">
+                    <div class="tf-text">${String.fromCharCode(97+i)}) ${stmt.text}</div>
+                    <div class="tf-btns">
+                        <button class="tf-btn ${ans === true ? 'active-true' : ''}" data-sidx="${i}" data-val="true">Đúng</button>
+                        <button class="tf-btn ${ans === false ? 'active-false' : ''}" data-sidx="${i}" data-val="false">Sai</button>
+                    </div></div>`;
+            });
+            html += `</div>`;
+        } else {
+            html += `<div class="question-text">${q.question}</div>
+                <input type="text" class="short-answer-input" id="short-inp" value="${userAnswers[currentIdx] || ''}">`;
+        }
+        container.innerHTML = html + `</div>`;
+        
+        document.getElementById('btn-prev').disabled = currentIdx === 0;
+        document.getElementById('btn-next').style.display = currentIdx === 19 ? 'none' : 'block';
+        document.getElementById('btn-submit').style.display = currentIdx === 19 ? 'block' : 'none';
+
+        if(window.MathJax) MathJax.typeset();
+        attachListeners();
+    };
+
+    const attachListeners = () => {
+        document.querySelectorAll('.option-item').forEach(el => el.onclick = () => {
+            userAnswers[currentIdx] = parseInt(el.dataset.idx);
+            playSound('ping'); renderQuestion();
+        });
+        document.querySelectorAll('.tf-btn').forEach(el => el.onclick = () => {
+            if(!userAnswers[currentIdx]) userAnswers[currentIdx] = {};
+            userAnswers[currentIdx][el.dataset.sidx] = el.dataset.val === 'true';
+            playSound('ping'); renderQuestion();
+        });
+        const inp = document.getElementById('short-inp');
+        if(inp) inp.oninput = (e) => userAnswers[currentIdx] = e.target.value;
+    };
+
+    const startTimer = () => {
+        resetTimer();
+        timerInterval = setInterval(() => {
+            if(isFinished) return;
+            timeRemaining--;
+            if(timeRemaining <= 0) currentIdx === 19 ? finishQuiz() : nextQuestion();
+            updateTimerDisplay();
+        }, 1000);
+    };
+
+    const resetTimer = () => {
+        timeRemaining = currentIdx < 12 ? 90 : 120;
+        updateTimerDisplay();
+    };
+
+    const updateTimerDisplay = () => {
+        const m = Math.floor(timeRemaining/60), s = timeRemaining%60;
+        document.getElementById('timer-display').innerText = `${m}:${s<10?'0'+s:s}`;
+    };
+
+    const handleCheat = () => {
+        if(gameMode === 'exam' && !isFinished) {
+            isFinished = true;
+            showModal("CẢNH BÁO", "Bạn đã rời khỏi trang. Hệ thống tự động nộp bài.");
+            setTimeout(finishQuiz, 2000);
+        }
+    };
+
+    const nextQuestion = () => { if(currentIdx < 19) { currentIdx++; renderQuestion(); resetTimer(); } };
+    const prevQuestion = () => { if(currentIdx > 0) { currentIdx--; renderQuestion(); resetTimer(); } };
+
+    const finishQuiz = async () => {
+        if(isFinished && gameMode !== 'exam') return;
+        isFinished = true;
+        clearInterval(timerInterval);
+        playSound('finish');
+        if(document.fullscreenElement) document.exitFullscreen();
+
+        let score = 0;
+        currentQuestions.forEach((q, idx) => {
+            const ans = userAnswers[idx];
+            if(idx < 12) { if(ans === q.shuffledCorrect) score += 0.25; }
+            else if(idx < 16) {
+                let c = 0; q.shuffledStatements.forEach((s, si) => { if(ans && ans[si] === s.originalVal) c++; });
+                score += [0, 0.0625, 0.125, 0.25, 0.5][c];
+            } else { if(ans && ans.trim().toLowerCase() === q.answer.toLowerCase()) score += 0.5; }
+        });
+
+        const finalScore = score.toFixed(1);
+        const user = JSON.parse(localStorage.getItem('quiz_user'));
+
+        // Firebase: Save Results (Rule 1 & 3)
+        if (currentUser) {
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'results'), {
+                    sbd: user.sbd,
+                    name: user.name,
+                    class: user.class,
+                    score: parseFloat(finalScore),
+                    timestamp: serverTimestamp()
+                });
+            } catch (e) { console.error("Error saving score:", e); }
+        }
+
+        document.getElementById('screen-quiz').classList.remove('active');
+        document.getElementById('screen-result').classList.add('active');
+        document.getElementById('result-score').innerText = finalScore;
+        document.getElementById('result-rank').innerText = score>=6?"XUẤT SẮC":score>=5?"GIỎI":score>=4?"KHÁ":score>=3?"ĐẠT":"CHƯA ĐẠT";
+        document.getElementById('result-congrats').innerText = `Chúc mừng ${user.name}!`;
+
+        let hist = '<h3>Chi tiết:</h3>';
+        currentQuestions.forEach((q, i) => {
+            hist += `<div class="history-item"><b>Câu ${i+1}:</b> ${q.question||q.context}<br>Giải thích: ${q.explanation || 'Xem hướng dẫn SGK.'}</div>`;
+        });
+        document.getElementById('result-history').innerHTML = hist;
+    };
+
+    // ADMIN FUNCTIONS
+    const openAdminLogin = () => {
+        document.getElementById('modal-admin-login').style.display = 'flex';
+        document.getElementById('admin-password').focus();
+    };
+
+    const checkAdminPassword = () => {
+        const pass = document.getElementById('admin-password').value;
+        if(pass === 'admin123') { // Mật khẩu mặc định
+            document.getElementById('modal-admin-login').style.display = 'none';
+            showAdminScreen();
+        } else {
+            alert('Sai mật khẩu!');
+        }
+    };
+
+    const showAdminScreen = async () => {
+        if(!currentUser) return;
+        
+        // Chuyển màn hình
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen-admin').classList.add('active');
+        document.getElementById('user-bar').style.display = 'none';
+
+        const content = document.getElementById('admin-results-content');
+        content.innerHTML = '<p>Đang tải dữ liệu...</p>';
+
+        try {
+            const querySnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'results'));
+            let results = [];
+            querySnapshot.forEach((doc) => {
+                results.push(doc.data());
+            });
+
+            // Sắp xếp theo thời gian nộp bài mới nhất (Rule 2: Sắp xếp trong JS)
+            results.sort((a, b) => {
+                const timeA = a.timestamp?.seconds || 0;
+                const timeB = b.timestamp?.seconds || 0;
+                return timeB - timeA;
+            });
+
+            if(results.length === 0) {
+                content.innerHTML = '<p>Chưa có dữ liệu bài làm nào.</p>';
+                return;
+            }
+
+            let tableHtml = `
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>SBD</th>
+                            <th>Họ và Tên</th>
+                            <th>Lớp</th>
+                            <th>Điểm</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            results.forEach(res => {
+                const date = res.timestamp ? new Date(res.timestamp.seconds * 1000).toLocaleString('vi-VN') : '...';
+                const scoreClass = res.score >= 5 ? 'score-high' : 'score-low';
+                tableHtml += `
+                    <tr>
+                        <td>${res.sbd}</td>
+                        <td>${res.name}</td>
+                        <td>${res.class}</td>
+                        <td><span class="score-badge ${scoreClass}">${res.score.toFixed(1)}</span></td>
+                        <td>${date}</td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += '</tbody></table>';
+            content.innerHTML = tableHtml;
+
+        } catch (e) {
+            content.innerHTML = '<p style="color:red;">Lỗi khi tải dữ liệu. Vui lòng thử lại.</p>';
+            console.error(e);
+        }
+    };
+
+    const showModal = (t, b) => {
+        document.getElementById('modal-title').innerText = t;
+        document.getElementById('modal-body').innerText = b;
+        document.getElementById('custom-modal').style.display = 'flex';
+    };
+
+    const closeModal = () => document.getElementById('custom-modal').style.display = 'none';
+    const playSound = (t) => { try { document.getElementById('sound-'+t).play(); } catch(e) {} };
+
+    // Initial Button Handlers
+    document.getElementById('btn-practice').onclick = () => startApp('practice');
+    document.getElementById('btn-exam').onclick = () => startApp('exam');
+    document.getElementById('btn-prev').onclick = prevQuestion;
+    document.getElementById('btn-next').onclick = nextQuestion;
+    document.getElementById('btn-submit').onclick = () => confirm("Nộp bài?") && finishQuiz();
+    document.getElementById('btn-close-modal').onclick = closeModal;
+    
+    // Admin Handlers
+    document.getElementById('btn-open-admin').onclick = openAdminLogin;
+    document.getElementById('btn-admin-login-confirm').onclick = checkAdminPassword;
+    document.getElementById('admin-password').onkeypress = (e) => { if(e.key === 'Enter') checkAdminPassword(); };
+
+</script>
+</body>
+</html>
