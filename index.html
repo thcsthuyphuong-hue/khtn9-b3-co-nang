@@ -56,7 +56,7 @@
 
         .screen {
             display: none;
-            padding: 20px;
+            padding: 15px;
             animation: fadeIn 0.3s ease-in-out;
             width: 100%;
         }
@@ -73,7 +73,7 @@
         .app-header {
             background-color: var(--primary-color);
             color: white;
-            padding: 10px 20px;
+            padding: 10px;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
@@ -84,8 +84,8 @@
             align-items: center;
             background: var(--secondary-color);
             color: white;
-            padding: 8px 20px;
-            font-size: 0.9rem;
+            padding: 8px 15px;
+            font-size: 0.85rem;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -93,28 +93,29 @@
 
         .welcome-card {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .welcome-title {
             color: var(--primary-color);
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
             text-transform: uppercase;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            font-size: 0.9rem;
         }
 
         .form-group input {
@@ -128,17 +129,17 @@
         .mode-selection {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .btn {
-            padding: 15px 20px;
+            padding: 12px 15px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.2s;
             text-align: center;
             display: flex;
@@ -149,8 +150,8 @@
         .btn-practice { background-color: #eee; color: var(--primary-color); }
         .btn-exam { background-color: var(--primary-color); color: white; }
         .btn-next { background-color: var(--secondary-color); color: white; flex: 1; }
-        .btn-prev { background-color: #ccc; color: #333; margin-right: 10px; }
-        .btn-submit { background-color: var(--error); color: white; margin-left: 10px; }
+        .btn-prev { background-color: #ccc; color: #333; margin-right: 8px; }
+        .btn-submit { background-color: var(--error); color: white; margin-left: 8px; }
 
         .btn:active { transform: scale(0.98); }
 
@@ -159,30 +160,30 @@
             font-weight: bold;
             text-align: center;
             margin-top: 15px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: none;
         }
 
         .question-slide {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 10px;
-            min-height: 400px;
+            margin-top: 5px;
+            min-height: 350px;
         }
 
         .question-meta {
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 10px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
 
         .question-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            line-height: 1.5;
             margin-bottom: 20px;
             font-weight: 500;
             white-space: pre-line;
@@ -191,17 +192,18 @@
         .options-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .option-item {
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #eee;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
+            font-size: 0.95rem;
         }
 
         .option-item:hover { background-color: #f9f9f9; border-color: var(--secondary-color); }
@@ -212,61 +214,52 @@
         }
 
         .option-label {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             background: #eee;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 12px;
             flex-shrink: 0;
             font-weight: bold;
+            font-size: 0.85rem;
         }
 
-        .tf-container {
-            width: 100%;
-        }
-
+        .tf-container { width: 100%; }
         .tf-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px 0;
             border-bottom: 1px solid #eee;
         }
-
-        .tf-text { flex: 1; padding-right: 10px; font-size: 1rem; }
-        
-        .tf-btns {
-            display: flex;
-            gap: 5px;
-        }
-
+        .tf-text { flex: 1; padding-right: 10px; font-size: 0.95rem; line-height: 1.4; }
+        .tf-btns { display: flex; gap: 4px; }
         .tf-btn {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 0.8rem;
             cursor: pointer;
             background: white;
         }
-
         .tf-btn.active-true { background: var(--success); color: white; border-color: var(--success); }
         .tf-btn.active-false { background: var(--error); color: white; border-color: var(--error); }
 
         .short-answer-input {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #eee;
             border-radius: 10px;
-            font-size: 1.1rem;
-            margin-top: 20px;
+            font-size: 1rem;
+            margin-top: 15px;
         }
 
         .nav-bar {
             display: flex;
-            padding: 20px;
+            padding: 15px;
             background: white;
             border-top: 1px solid #eee;
             margin-top: auto;
@@ -274,10 +267,49 @@
 
         .result-card {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
             text-align: center;
         }
+
+        .history-list {
+            text-align: left;
+            margin-top: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 10px 5px;
+            border-top: 1px solid #ddd;
+        }
+
+        .history-item {
+            padding: 15px 10px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .history-item-q {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 1rem;
+            display: block;
+        }
+
+        .explanation-box {
+            background: #f1f8e9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--success);
+            line-height: 1.5;
+        }
+
+        .wrong-ans { color: var(--error); font-weight: bold; }
+        .correct-ans { color: var(--success); font-weight: bold; }
 
         /* Admin Table Styles */
         .admin-results-container {
@@ -285,60 +317,18 @@
             overflow-x: auto;
             margin-top: 20px;
             background: white;
-            padding: 15px;
+            padding: 10px;
             border-radius: 10px;
         }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-
-        .admin-table th, .admin-table td {
-            padding: 10px 6px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-
-        .admin-table th {
-            background-color: var(--primary-color);
-            color: white;
-            white-space: nowrap;
-        }
-
-        .admin-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .score-badge {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            color: white;
-        }
-
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .admin-table th, .admin-table td { padding: 8px 5px; border-bottom: 1px solid #eee; text-align: left; }
+        .admin-table th { background-color: var(--primary-color); color: white; white-space: nowrap; }
+        .score-badge { padding: 3px 6px; border-radius: 4px; font-weight: bold; color: white; }
         .score-high { background-color: var(--success); }
         .score-low { background-color: var(--error); }
+        .rank-badge { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; background: var(--accent-color); color: var(--primary-color); border-radius: 50%; font-weight: bold; }
 
-        .rank-badge {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            text-align: center;
-            background: var(--accent-color);
-            color: var(--primary-color);
-            border-radius: 50%;
-            font-weight: bold;
-        }
-
-        .app-footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 0.8rem;
-            color: #777;
-        }
+        .app-footer { text-align: center; padding: 12px; font-size: 0.75rem; color: #777; line-height: 1.4; }
 
         #custom-modal {
             position: fixed;
@@ -349,50 +339,42 @@
             align-items: center;
             z-index: 1000;
         }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 90%;
-            text-align: center;
-        }
+        .modal-content { background: white; padding: 25px; border-radius: 15px; max-width: 85%; text-align: center; }
 
         .admin-btn {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            opacity: 0.6;
+            bottom: 5px;
+            right: 5px;
+            opacity: 0.5;
             background: #444;
             color: white;
             border: none;
             cursor: pointer;
-            font-size: 0.7rem;
-            padding: 6px 12px;
+            font-size: 0.65rem;
+            padding: 4px 8px;
             border-radius: 4px;
             z-index: 1001;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
 <div class="app-header">
-    <h1 style="margin:0; font-size: 1.2rem;">KHOA HỌC TỰ NHIÊN 9 - BÀI 3: CƠ NĂNG</h1>
+    <h1 style="margin:0; font-size: 1.1rem;">KHTN 9 - BÀI 3: CƠ NĂNG</h1>
 </div>
 
 <div id="user-bar" class="user-info-bar" style="display: none;">
-    <span id="display-user">Họ tên: ...</span>
-    <span id="timer-display" style="font-weight: bold; background: rgba(0,0,0,0.2); padding: 2px 10px; border-radius: 5px;">00:00</span>
+    <span id="display-user">Thí sinh: ...</span>
+    <span id="timer-display" style="font-weight: bold; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 5px;">00:00</span>
 </div>
 
 <div class="app-container">
     <div id="screen-welcome" class="screen active">
         <div class="welcome-card">
-            <h2 class="welcome-title">Thông tin thí sinh</h2>
+            <h2 class="welcome-title">Thông tin dự thi</h2>
             <div class="form-group">
                 <label>Số báo danh</label>
-                <input type="text" id="input-sbd" placeholder="Ví dụ: SBD001">
+                <input type="text" id="input-sbd" placeholder="Ví dụ: T-011">
             </div>
             <div class="form-group">
                 <label>Họ và tên</label>
@@ -406,10 +388,10 @@
                 <label>Trường</label>
                 <input type="text" id="input-school" placeholder="Ví dụ: THCS Thuỷ Phương">
             </div>
-            <p id="exam-warning" class="warning-text">Cảnh báo quan trọng: “Nếu bạn rời khỏi trang làm bài, hệ thống sẽ tự động nộp bài.”</p>
+            <p id="exam-warning" class="warning-text">CẢNH BÁO: Tự động nộp bài nếu rời khỏi trang!</p>
             <div class="mode-selection">
                 <button class="btn btn-practice" id="btn-practice">LUYỆN TẬP</button>
-                <button class="btn btn-exam" id="btn-exam">LÀM BÀI KIỂM TRA</button>
+                <button class="btn btn-exam" id="btn-exam">KIỂM TRA</button>
             </div>
         </div>
     </div>
@@ -425,26 +407,27 @@
 
     <div id="screen-result" class="screen">
         <div class="result-card">
-            <h2 id="result-congrats">Chúc mừng!</h2>
-            <div class="score-circle">
-                <span id="result-score">0.0</span>
-                <span style="font-size: 0.8rem;">/ 7.0</span>
+            <h2 id="result-congrats" style="font-size: 1.2rem;">Chúc mừng!</h2>
+            <div style="background: var(--primary-color); color: white; width: 100px; height: 100px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px auto; font-weight: bold;">
+                <span id="result-score" style="font-size: 2rem;">0.0</span>
+                <span style="font-size: 0.7rem;">/ 7.0</span>
             </div>
-            <div id="result-rank" class="rank-label">...</div>
-            <button class="btn btn-next" onclick="location.reload()">Làm lại bài</button>
-            <div class="history-list" id="result-history"></div>
+            <div id="result-rank" style="font-weight: bold; font-size: 1.3rem; margin-bottom: 15px;">...</div>
+            <button class="btn btn-next" onclick="location.reload()" style="margin: 0 auto; width: 180px;">Làm lại bài</button>
+            
+            <div id="result-history" class="history-list"></div>
         </div>
     </div>
 
     <div id="screen-admin" class="screen">
         <div class="welcome-card" style="max-width: 100%;">
-            <h2 class="welcome-title">BẢNG VÀNG THÀNH TÍCH</h2>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <button class="btn btn-prev" style="width: auto; padding: 8px 15px;" onclick="location.reload()">Quay lại</button>
-                <span id="admin-total-students" style="font-weight: bold; color: var(--secondary-color);">Tổng số: 0</span>
+            <h2 class="welcome-title" style="font-size: 1.1rem;">BẢNG VÀNG THÀNH TÍCH</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <button class="btn btn-prev" style="width: auto; padding: 6px 12px; font-size: 0.8rem;" onclick="location.reload()">Quay lại</button>
+                <span id="admin-total-students" style="font-weight: bold; color: var(--secondary-color); font-size: 0.85rem;">Tổng: 0</span>
             </div>
             <div id="admin-results-content" class="admin-results-container">
-                <p>Đang tải dữ liệu...</p>
+                <p>Đang tải...</p>
             </div>
         </div>
     </div>
@@ -453,9 +436,9 @@
 <div class="app-footer">Bản quyền thuộc về Trường THCS Thuỷ Phương, Thành phố Huế</div>
 
 <div id="modal-admin-login" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000;">
-    <div class="modal-content" style="max-width: 400px; width: 90%;">
-        <h3>Xác thực giáo viên</h3>
-        <input type="password" id="admin-password" placeholder="Nhập mật khẩu Admin" style="width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px;">
+    <div class="modal-content" style="max-width: 350px; width: 90%;">
+        <h3>Xác thực Admin</h3>
+        <input type="password" id="admin-password" placeholder="Mật khẩu" style="width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ccc; border-radius: 8px;">
         <div style="display: flex; gap: 10px;">
             <button class="btn btn-next" id="btn-admin-login-confirm">Đăng nhập</button>
             <button class="btn btn-prev" onclick="document.getElementById('modal-admin-login').style.display='none'">Hủy</button>
@@ -466,8 +449,8 @@
 <div id="custom-modal">
     <div class="modal-content">
         <h3 id="modal-title" style="color: var(--error);">Thông báo</h3>
-        <p id="modal-body">Nội dung thông báo...</p>
-        <button class="btn btn-next" id="btn-close-modal">Đóng</button>
+        <p id="modal-body" style="font-size: 0.95rem; line-height: 1.5;"></p>
+        <button class="btn btn-next" id="btn-close-modal" style="margin: 0 auto; width: 100px;">Đóng</button>
     </div>
 </div>
 
@@ -494,7 +477,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'khtn9-5c1f4';
+    const appId = 'khtn9-5c1f4';
 
     let currentUser = null;
     const initAuth = async () => {
@@ -512,39 +495,39 @@
             { id: 3.1, level: "Nhận biết", question: "Đại lượng nào sau đây được định nghĩa là tổng động năng và thế năng của một vật?", options: ["Cơ năng.", "Công cơ học.", "Nhiệt năng.", "Công suất."], correct: 0, explanation: "Đúng theo định nghĩa cơ năng là tổng $W_đ + W_t$." },
             { id: 3.2, level: "Nhận biết", question: "Công thức tính động năng của một vật có khối lượng $m$ đang chuyển động với tốc độ $v$ là", options: ["$W_đ = mv^2$.", "$W_đ = \\frac{1}{2}mv^2$.", "$W_đ = \\frac{1}{2}mv$.", "$W_đ = 2mv^2$."], correct: 1, explanation: "Công thức chuẩn là $W_đ = \\frac{1}{2}mv^2$." },
             { id: 3.3, level: "Nhận biết", question: "Một vật có trọng lượng $P$ đang ở độ cao $h$ so với mốc tính thế năng. Thế năng trọng trường $W_t$ của vật được tính theo công thức", options: ["$W_t = \\frac{1}{2}Ph$.", "$W_t = P + h$.", "$W_t = Ph$.", "$W_t = \\frac{P}{h}$."], correct: 2, explanation: "Thế năng trọng trường được tính bằng trọng lượng nhân độ cao: $W_t = Ph$." },
-            { id: 3.4, level: "Nhận biết", question: "Đơn vị của cơ năng, động năng và thế năng trong hệ SI là", options: ["joule (J).", "newton (N).", "watt (W).", "pascal (Pa)."], correct: 0, explanation: "Joule (J) là đơn vị đo năng lượng nói chung và các dạng cơ năng." },
-            { id: 3.5, level: "Nhận biết", question: "Trong công thức $W_đ = \\frac{1}{2}mv^2$, đại lượng $v$ đại diện cho", options: ["thời gian chuyển động.", "quãng đường đi được.", "tốc độ của vật.", "gia tốc của vật."], correct: 2, explanation: "$v$ là kí hiệu tốc độ trong vật lí." },
-            { id: 3.6, level: "Nhận biết", question: "Khi một vật nằm tại vị trí được chọn làm mốc thế năng thì thế năng trọng trường của vật đó bằng", options: ["0 J.", "1 J.", "10 J.", "vô cùng lớn."], correct: 0, explanation: "Tại mốc thế năng thì $h = 0$ nên $W_t = 0$." },
-            { id: 3.7, level: "Nhận biết", question: "Một vật có khối lượng $m$ đang chuyển động, nếu vật dừng lại thì động năng của vật sẽ", options: ["bằng không.", "không thay đổi.", "tăng lên gấp đôi.", "có giá trị âm."], correct: 0, explanation: "Dừng lại nghĩa là tốc độ bằng 0, do đó động năng bằng 0." },
+            { id: 3.4, level: "Nhận biết", question: "Đơn vị của cơ năng, động năng và thế năng trong hệ SI là", options: ["joule (J).", "newton (N).", "watt (W).", "pascal (Pa)."], correct: 0, explanation: "Joule (J) là đơn vị đo năng lượng nói chung." },
+            { id: 3.5, level: "Nhận biết", question: "Trong công thức $W_đ = \\frac{1}{2}mv^2$, đại lượng $v$ đại diện cho", options: ["thời gian chuyển động.", "quãng đường đi được.", "tốc độ của vật.", "gia tốc của vật."], correct: 2, explanation: "$v$ là kí hiệu tốc độ trong chương trình GDPT 2018." },
+            { id: 3.6, level: "Nhận biết", question: "Khi một vật nằm tại vị trí được chọn làm mốc thế năng thì thế năng trọng trường của vật đó bằng", options: ["0 J.", "1 J.", "10 J.", "vô cùng lớn."], correct: 0, explanation: "Tại mốc tính thế năng thì độ cao $h = 0$ nên $W_t = 0$." },
+            { id: 3.7, level: "Nhận biết", question: "Một vật có khối lượng $m$ đang chuyển động, nếu vật dừng lại thì động năng của vật sẽ", options: ["bằng không.", "không thay đổi.", "tăng lên gấp đôi.", "có giá trị âm."], correct: 0, explanation: "Khi dừng lại $v=0$ nên $W_đ = 0$." },
             { id: 3.8, level: "Nhận biết", question: "Trong công thức tính thế năng trọng trường $W_t = Ph$, đại lượng $h$ là", options: ["khối lượng của vật.", "tốc độ của vật.", "độ cao của vật so với mốc.", "trọng lượng của vật."], correct: 2, explanation: "$h$ là độ cao thẳng đứng tính từ mốc thế năng." },
-            { id: 3.9, level: "Thông hiểu", question: "Nếu giữ nguyên độ cao nhưng tăng khối lượng của vật lên gấp ba lần thì thế năng trọng trường của vật sẽ", options: ["giảm đi ba lần.", "không thay đổi.", "tăng lên gấp ba lần.", "tăng lên gấp chín lần."], correct: 2, explanation: "$W_t$ tỉ lệ thuận với khối lượng $m$. Nếu $m$ tăng 3 lần thì $W_t$ tăng 3 lần." },
+            { id: 3.9, level: "Thông hiểu", question: "Nếu giữ nguyên độ cao nhưng tăng khối lượng của vật lên gấp ba lần thì thế năng trọng trường của vật sẽ", options: ["giảm đi ba lần.", "không thay đổi.", "tăng lên gấp ba lần.", "tăng lên gấp chín lần."], correct: 2, explanation: "$W_t$ tỉ lệ thuận với khối lượng. $m$ tăng 3 thì $W_t$ tăng 3." },
             { id: 3.10, level: "Thông hiểu", question: "Hai vật có khối lượng bằng nhau, vật A ở độ cao 5 m, vật B ở độ cao 10 m so với mặt đất. Nhận định nào sau đây là ĐÚNG?", options: ["Thế năng vật A lớn hơn vật B.", "Thế năng vật B lớn hơn vật A.", "Thế năng hai vật bằng nhau.", "Không so sánh được thế năng."], correct: 1, explanation: "Cùng khối lượng, vật nào ở cao hơn thì có thế năng lớn hơn." },
-            { id: 3.11, level: "Thông hiểu", question: "Khi một quả mít rơi từ trên cây xuống đất, trong quá trình rơi thì thế năng trọng trường của quả mít", options: ["giảm dần.", "tăng dần.", "không đổi.", "bằng không."], correct: 0, explanation: "Khi rơi, độ cao $h$ giảm dần nên $W_t$ giảm dần." },
-            { id: 3.12, level: "Thông hiểu", question: "Một chiếc máy bay đang bay ngang ở độ cao không đổi, nếu máy bay thả bớt hàng hóa xuống thì thế năng trọng trường của máy bay sẽ", options: ["tăng lên.", "giảm xuống.", "không thay đổi.", "bằng không."], correct: 1, explanation: "Thả bớt hàng làm khối lượng $m$ giảm, dẫn đến $W_t$ giảm." },
-            { id: 3.13, level: "Thông hiểu", question: "Yếu tố nào sau đây KHÔNG làm thay đổi thế năng trọng trường của một vật?", options: ["Thay đổi khối lượng.", "Thay đổi độ cao.", "Thay đổi tốc độ.", "Thay đổi vị trí mốc thế năng."], correct: 2, explanation: "Tốc độ chỉ ảnh hưởng đến động năng, không ảnh hưởng đến thế năng trọng trường." },
-            { id: 3.14, level: "Thông hiểu", question: "Tại sao nước ở trên đỉnh thác cao lại có khả năng thực hiện công lớn khi chảy xuống?", options: ["Vì ở trên cao nước có thế năng trọng trường lớn.", "Vì nước ở trên cao có tốc độ rất lớn.", "Vì nước ở trên cao có khối lượng lớn hơn ở dưới.", "Vì nước ở trên cao có nhiệt độ cao."], correct: 0, explanation: "Nước ở trên cao tích lũy năng lượng dưới dạng thế năng trọng trường." },
-            { id: 3.15, level: "Thông hiểu", question: "Hai bình chứa nước giống hệt nhau, bình 1 chứa đầy nước, bình 2 chứa một nửa nước và được đặt cùng một độ cao. So sánh thế năng trọng trường của hai bình nước?", options: ["Bình 1 có thế năng lớn hơn bình 2.", "Bình 2 có thế năng lớn hơn bình 1.", "Hai bình có thế năng bằng nhau.", "Thế năng hai bình đều bằng không."], correct: 0, explanation: "Bình 1 nhiều nước hơn (khối lượng lớn hơn) nên có thế năng lớn hơn." },
-            { id: 3.16, level: "Thông hiểu", question: "Một vật đang chuyển động trên mặt đất (chọn mặt đất làm mốc thế năng) thì cơ năng của vật", options: ["bằng động năng của vật.", "bằng thế năng của vật.", "bằng không.", "nhỏ hơn động năng."], correct: 0, explanation: "Trên mặt đất $W_t = 0$, nên $W = W_đ + W_t = W_đ$." },
-            { id: 3.17, level: "Vận dụng", question: "Một vận động viên khối lượng 70 kg đang chạy với tốc độ 4 m/s. Động năng của vận động viên là", options: ["280 J.", "140 J.", "560 J.", "1120 J."], correct: 2, explanation: "$W_đ = \\frac{1}{2} \\cdot 70 \\cdot 4^2 = 560$ J." },
-            { id: 3.18, level: "Vận dụng", question: "Một hòn đá trọng lượng 20 N được đưa lên độ cao 3 m so với mốc thế năng. Thế năng của hòn đá là", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "$W_t = P \\cdot h = 20 \\cdot 3 = 60$ J." },
-            { id: 3.19, level: "Vận dụng", question: "Một chiếc xe điện đồ chơi nặng 2 kg có động năng 16 J. Tốc độ của xe là", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "$16 = \\frac{1}{2} \\cdot 2 \\cdot v^2 \\Rightarrow v^2 = 16 \\Rightarrow v = 4$ m/s." },
-            { id: 3.20, level: "Vận dụng", question: "Một vật có khối lượng 1 kg có thế năng trọng trường là 50 J. Biết trọng lượng vật gấp 10 lần khối lượng, độ cao của vật so với mốc là", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "$P = 10 \\cdot 1 = 10$ N. $h = W_t / P = 50 / 10 = 5$ m." },
-            { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g được ném lên cao, tại vị trí có tốc độ 2 m/s và độ cao 1,5 m so với mặt đất. Biết trọng lượng quả bóng là 5 N. Cơ năng của quả bóng so với mặt đất là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "$W_đ = \\frac{1}{2} \\cdot 0,5 \\cdot 2^2 = 1$ J. $W_t = 5 \\cdot 1,5 = 7,5$ J. $W = 1 + 7,5 = 8,5$ J." },
-            { id: 3.22, level: "Vận dụng", question: "Khi ta thả một quả bóng từ trên cao xuống mặt sàn, trong quá trình rơi đã có sự chuyển hóa năng lượng như thế nào?", options: ["Động năng chuyển hóa thành thế năng.", "Thế năng chuyển hóa thành động năng.", "Nhiệt năng chuyển hóa thành cơ năng.", "Cơ năng chuyển hóa thành hóa năng."], correct: 1, explanation: "Rơi xuống: độ cao giảm ($W_t$ giảm), tốc độ tăng ($W_đ$ tăng)." },
-            { id: 3.23, level: "Vận dụng", question: "Một người đạp xe lên dốc, tốc độ của xe giảm dần. Khi đó", options: ["động năng giảm, thế năng tăng.", "động năng tăng, thế năng giảm.", "cả động năng và thế năng đều tăng.", "cả động năng và thế năng đều giảm."], correct: 0, explanation: "Lên cao ($W_t$ tăng), đi chậm lại ($W_đ$ giảm)." },
-            { id: 3.24, level: "Vận dụng", question: "Tại sao khi xây dựng các đập thủy điện, người ta phải xây đập rất cao và tích nước ở hồ chứa phía trên?", options: ["Để nước chảy đẹp hơn.", "Để tăng thế năng trọng trường của nước, tạo ra động năng lớn làm quay tuabin.", "Để nuôi được nhiều cá hơn trong hồ.", "Để tiết kiệm diện tích đất ở phía dưới."], correct: 1, explanation: "Tăng thế năng nước để sau đó chuyển hóa thành động năng mạnh quay tuabin." }
+            { id: 3.11, level: "Thông hiểu", question: "Khi một quả mít rơi từ trên cây xuống đất, trong quá trình rơi thì thế năng trọng trường của quả mít", options: ["giảm dần.", "tăng dần.", "không đổi.", "bằng không."], correct: 0, explanation: "Rơi xuống thì độ cao $h$ giảm dần nên $W_t$ giảm dần." },
+            { id: 3.12, level: "Thông hiểu", question: "Một chiếc máy bay đang bay ngang ở độ cao không đổi, nếu máy bay thả bớt hàng hóa xuống thì thế năng trọng trường của máy bay sẽ", options: ["tăng lên.", "giảm xuống.", "không thay đổi.", "bằng không."], correct: 1, explanation: "Thả bớt hàng làm khối lượng $m$ giảm dẫn đến $W_t$ giảm." },
+            { id: 3.13, level: "Thông hiểu", question: "Yếu tố nào sau đây KHÔNG làm thay đổi thế năng trọng trường của một vật?", options: ["Thay đổi khối lượng.", "Thay đổi độ cao.", "Thay đổi tốc độ.", "Thay đổi vị trí mốc thế năng."], correct: 2, explanation: "Tốc độ chỉ ảnh hưởng động năng, không ảnh hưởng thế năng trọng trường." },
+            { id: 3.14, level: "Thông hiểu", question: "Tại sao nước ở trên đỉnh thác cao lại có khả năng thực hiện công lớn khi chảy xuống?", options: ["Vì ở trên cao nước có thế năng trọng trường lớn.", "Vì nước ở trên cao có tốc độ rất lớn.", "Vì nước ở trên cao có khối lượng lớn hơn ở dưới.", "Vì nước ở trên cao có nhiệt độ cao."], correct: 0, explanation: "Độ cao lớn tạo ra thế năng trọng trường lớn có khả năng thực hiện công lớn." },
+            { id: 3.15, level: "Thông hiểu", question: "Hai bình chứa nước giống hệt nhau, bình 1 chứa đầy nước, bình 2 chứa một nửa nước và được đặt cùng một độ cao. So sánh thế năng trọng trường của hai bình nước?", options: ["Bình 1 có thế năng lớn hơn bình 2.", "Bình 2 có thế năng lớn hơn bình 1.", "Hai bình có thế năng bằng nhau.", "Thế năng hai bình đều bằng không."], correct: 0, explanation: "Bình 1 đầy nước nên khối lượng lớn hơn, dẫn đến thế năng lớn hơn." },
+            { id: 3.16, level: "Thông hiểu", question: "Một vật đang chuyển động trên mặt đất (chọn mặt đất làm mốc thế năng) thì cơ năng của vật", options: ["bằng động năng của vật.", "bằng thế năng của vật.", "bằng không.", "nhỏ hơn động năng."], correct: 0, explanation: "Trên mặt đất $h=0 \Rightarrow W_t=0 \Rightarrow W = W_đ + 0 = W_đ$." },
+            { id: 3.17, level: "Vận dụng", question: "Một vận động viên khối lượng 70 kg đang chạy với tốc độ 4 m/s. Động năng của vận động viên là", options: ["280 J.", "140 J.", "560 J.", "1120 J."], correct: 2, explanation: "$W_đ = 0,5 \cdot 70 \cdot 4^2 = 560$ J." },
+            { id: 3.18, level: "Vận dụng", question: "Một hòn đá trọng lượng 20 N được đưa lên độ cao 3 m so với mốc thế năng. Thế năng của hòn đá là", options: ["6 J.", "60 J.", "23 J.", "600 J."], correct: 1, explanation: "$W_t = P \cdot h = 20 \cdot 3 = 60$ J." },
+            { id: 3.19, level: "Vận dụng", question: "Một chiếc xe điện đồ chơi nặng 2 kg có động năng 16 J. Tốc độ của xe là", options: ["8 m/s.", "4 m/s.", "16 m/s.", "2 m/s."], correct: 1, explanation: "$16 = 0,5 \cdot 2 \cdot v^2 \Rightarrow v^2 = 16 \Rightarrow v = 4$ m/s." },
+            { id: 3.20, level: "Vận dụng", question: "Một vật có khối lượng 1 kg có thế năng trọng trường là 50 J. Biết trọng lượng vật gấp 10 lần khối lượng, độ cao của vật so với mốc là", options: ["5 m.", "50 m.", "0,5 m.", "10 m."], correct: 0, explanation: "$P = 10 \cdot 1 = 10$ N. $h = W_t / P = 50 / 10 = 5$ m." },
+            { id: 3.21, level: "Vận dụng", question: "Một quả bóng 500 g được ném lên cao, tại vị trí có tốc độ 2 m/s và độ cao 1,5 m so với mặt đất. Biết trọng lượng quả bóng là 5 N. Cơ năng của quả bóng so với mặt đất là", options: ["1 J.", "7,5 J.", "8,5 J.", "12,5 J."], correct: 2, explanation: "$W_đ = 1$ J, $W_t = 7,5$ J $\Rightarrow W = 8,5$ J." },
+            { id: 3.22, level: "Vận dụng", question: "Khi ta thả một quả bóng từ trên cao xuống mặt sàn, trong quá trình rơi đã có sự chuyển hóa năng lượng như thế nào?", options: ["Động năng chuyển hóa thành thế năng.", "Thế năng chuyển hóa thành động năng.", "Nhiệt năng chuyển hóa thành cơ năng.", "Cơ năng chuyển hóa thành hóa năng."], correct: 1, explanation: "Rơi xuống h giảm (Wt giảm), v tăng (Wđ tăng) nên thế năng chuyển thành động năng." },
+            { id: 3.23, level: "Vận dụng", question: "Một người đạp xe lên dốc, tốc độ của xe giảm dần. Khi đó", options: ["động năng giảm, thế năng tăng.", "động năng tăng, thế năng giảm.", "cả động năng và thế năng đều tăng.", "cả động năng và thế năng đều giảm."], correct: 0, explanation: "Lên dốc h tăng (Wt tăng), tốc độ giảm (Wđ giảm)." },
+            { id: 3.24, level: "Vận dụng", question: "Tại sao khi xây dựng các đập thủy điện, người ta phải xây đập rất cao và tích nước ở hồ chứa phía trên?", options: ["Để nước chảy đẹp hơn.", "Để tăng thế năng trọng trường của nước, tạo ra động năng lớn làm quay tuabin.", "Để nuôi được nhiều cá hơn trong hồ.", "Để tiết kiệm diện tích đất ở phía dưới."], correct: 1, explanation: "Tích nước ở cao để tạo thế năng lớn, sau đó chuyển thành động năng mạnh quay tuabin." }
         ],
         truefalse: [
-            { id: 3.25, level: "Biết-Hiểu", context: "Bạn nhỏ chơi xích đu từ cao nhất xuống thấp nhất.", statements: ["Tại cao nhất, thế năng lớn nhất.", "Thế năng giảm và động năng tăng khi xuống thấp.", "Tại thấp nhất cơ năng bằng không.", "Thế năng chỉ phụ thuộc khối lượng."], pattern: [true, true, false, false], explanations: ["Đúng.", "Đúng.", "Sai.", "Sai."] },
-            { id: 3.26, level: "Biết-Vận dụng", context: "Vật 4kg, v=3m/s nằm ngang.", statements: ["Động năng là 18 J.", "Cơ năng bằng không.", "Tốc độ gấp đôi thì động năng gấp 4.", "Công thức $W_đ = 0.5mv^2$."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
-            { id: 3.27, level: "Hiểu-Vận dụng", context: "Quả táo 200g ở độ cao 3m.", statements: ["Thế năng là 6 J.", "Cơ năng bằng không.", "Cơ năng bảo toàn khi rơi.", "Thế năng tăng khi rơi."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] },
-            { id: 3.28, level: "Biết-Vận dụng", context: "VĐV 600N ở bục 10m.", statements: ["Thế năng là 6000 J.", "Tại mặt nước thế năng 600 J.", "Công thức $W_t=Ph$.", "Động năng đứng yên là 6000 J."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai.", "Đúng.", "Sai."] }
+            { id: 3.25, level: "Biết-Hiểu", context: "Một bạn nhỏ đang chơi xích đu, khi xích đu chuyển động từ vị trí cao nhất về vị trí thấp nhất.", statements: ["Tại vị trí cao nhất, xích đu có thế năng trọng trường lớn nhất.", "Khi chuyển động từ cao xuống thấp, thế năng giảm dần và động năng tăng dần.", "Tại vị trí thấp nhất, cơ năng của xích đu bằng không.", "Thế năng của xích đu chỉ phụ thuộc vào cân nặng mà không phụ thuộc độ cao."], pattern: [true, true, false, false], explanations: ["Đúng vì độ cao cực đại.", "Đúng vì có sự chuyển hóa.", "Sai vì vẫn có động năng lớn nhất.", "Sai vì phụ thuộc cả m và h."] },
+            { id: 3.26, level: "Biết-Vận dụng", context: "Một vật có khối lượng 4 kg đang chuyển động trên mặt sàn nằm ngang với tốc độ không đổi 3 m/s.", statements: ["Động năng của vật có giá trị là 18 J.", "Vì vật chuyển động trên mặt sàn nên cơ năng của vật luôn bằng không.", "Nếu tốc độ của vật tăng lên gấp đôi thì động năng tăng lên gấp bốn lần.", "Công thức tính động năng của vật là $W_đ = 0,5mv^2$."], pattern: [true, false, true, true], explanations: ["Đúng: $0,5 \cdot 4 \cdot 3^2 = 18$.", "Sai vì vật có động năng.", "Đúng vì tỉ lệ với bình phương v.", "Đúng."] },
+            { id: 3.27, level: "Hiểu-Vận dụng", context: "Một quả táo có khối lượng 200 g nằm yên trên cành cao 3 m. Trọng lượng là 2 N.", statements: ["Quả táo đang có thế năng trọng trường là 6 J.", "Vì quả táo nằm yên nên cơ năng của quả táo bằng không.", "Nếu quả táo bị rơi, cơ năng của quả táo (bỏ qua sức cản) là không đổi.", "Thế năng của quả táo tăng dần khi nó rơi gần đến mặt đất."], pattern: [true, false, true, false], explanations: ["Đúng: $2 \cdot 3 = 6$.", "Sai vì có thế năng.", "Đúng (bảo toàn).", "Sai vì h giảm thì Wt giảm."] },
+            { id: 3.28, level: "Biết-Vận dụng", context: "Vận động viên 600 N đứng ở bục nhảy cao 10 m.", statements: ["Thế năng của vận động viên là 6000 J.", "Tại mặt nước thế năng của người đó là 600 J.", "Công thức xác định thế năng trọng trường là $W_t=Ph$.", "Động năng của vận động viên khi đứng yên trên bục nhảy là 6000 J."], pattern: [true, false, true, false], explanations: ["Đúng.", "Sai vì tại mốc Wt=0.", "Đúng.", "Sai vì v=0 nên Wđ=0."] }
         ],
         short: [
-            { id: 3.33, level: "Vận dụng", question: "Khối lượng 5 kg, tốc độ 4 m/s. Động năng là bao nhiêu J?", answer: "40", explanation: "0.5 * 5 * 16 = 40 J." },
-            { id: 3.34, level: "Vận dụng", question: "Trọng lượng 150 N, cao 2 m. Thế năng là bao nhiêu J?", answer: "300", explanation: "150 * 2 = 300 J." },
-            { id: 3.35, level: "Vận dụng", question: "Động năng 25 J, thế năng 45 J. Cơ năng là bao nhiêu J?", answer: "70", explanation: "25 + 45 = 70 J." },
-            { id: 3.37, level: "Hiểu", question: "Cho nhận định:\n1. Thế năng tỉ lệ thuận khối lượng.\n2. Tốc độ càng lớn động năng luôn càng lớn.\n3. Động năng có thể âm.\n4. Thế năng phụ thuộc mốc.\n5. Đơn vị cơ năng là N.\n6. Vật nằm yên trên đất cơ năng luôn 0.\n7. Khi rơi, thế năng chuyển hóa thành động năng.\n8. $W = W_đ + W_t$.\nDãy số ĐÚNG tăng dần?", answer: "1478", explanation: "Các ý 1,4,7,8 đúng." }
+            { id: 3.33, level: "Vận dụng", question: "Một vật có khối lượng 5 kg đang chuyển động với tốc độ 4 m/s. Động năng của vật là bao nhiêu joule?", answer: "40", explanation: "$0,5 \cdot 5 \cdot 4^2 = 40$ J." },
+            { id: 3.34, level: "Vận dụng", question: "Một vật có trọng lượng 150 N được đưa lên độ cao 2 m. Thế năng trọng trường là bao nhiêu joule?", answer: "300", explanation: "$150 \cdot 2 = 300$ J." },
+            { id: 3.35, level: "Vận dụng", question: "Động năng 25 J và thế năng 45 J. Cơ năng của vật là bao nhiêu joule?", answer: "70", explanation: "$25 + 45 = 70$ J." },
+            { id: 3.37, level: "Hiểu", question: "Cho các nhận định:\n1. Thế năng tỉ lệ thuận khối lượng.\n2. Tốc độ càng lớn động năng luôn càng lớn.\n3. Động năng có thể âm.\n4. Thế năng phụ thuộc mốc.\n5. Cơ năng có đơn vị là N.\n6. Vật nằm yên trên đất cơ năng luôn 0.\n7. Khi rơi, thế năng chuyển hóa thành động năng.\n8. $W = W_đ + W_t$.\nNhập dãy số nhận định ĐÚNG tăng dần.", answer: "1478", explanation: "Các ý 1, 4, 7, 8 đúng bản chất." }
         ]
     };
 
@@ -578,6 +561,7 @@
         document.getElementById('user-bar').style.display = 'flex';
         document.getElementById('display-user').innerText = `${user.name} - ${user.sbd}`;
         if(mode === 'exam') {
+            document.getElementById('exam-warning').style.display = 'block';
             document.documentElement.requestFullscreen().catch(() => {});
             document.addEventListener("visibilitychange", handleCheat);
             window.addEventListener("blur", handleCheat);
@@ -638,16 +622,18 @@
         document.getElementById('btn-prev').disabled = currentIdx === 0;
         document.getElementById('btn-next').style.display = currentIdx === 19 ? 'none' : 'block';
         document.getElementById('btn-submit').style.display = currentIdx === 19 ? 'block' : 'none';
-        if(window.MathJax) MathJax.typeset();
+        if(window.MathJax) MathJax.typesetPromise();
         attachListeners();
     };
 
     const attachListeners = () => {
         document.querySelectorAll('.option-item').forEach(el => el.onclick = () => {
+            if(isFinished) return;
             userAnswers[currentIdx] = parseInt(el.dataset.idx);
             playSound('ping'); renderQuestion();
         });
         document.querySelectorAll('.tf-btn').forEach(el => el.onclick = () => {
+            if(isFinished) return;
             if(!userAnswers[currentIdx]) userAnswers[currentIdx] = {};
             userAnswers[currentIdx][el.dataset.sidx] = el.dataset.val === 'true';
             playSound('ping'); renderQuestion();
@@ -701,7 +687,7 @@
             else if(idx < 16) {
                 let c = 0; q.shuffledStatements.forEach((s, si) => { if(ans && ans[si] === s.originalVal) c++; });
                 score += [0, 0.0625, 0.125, 0.25, 0.5][c];
-            } else { if(ans && ans.trim().toLowerCase() === q.answer.toLowerCase()) score += 0.5; }
+            } else { if(ans && ans.toString().trim().toLowerCase() === q.answer.toLowerCase()) score += 0.5; }
         });
         const finalScore = score.toFixed(1);
         const user = JSON.parse(localStorage.getItem('quiz_user'));
@@ -718,11 +704,33 @@
         document.getElementById('result-score').innerText = finalScore;
         document.getElementById('result-rank').innerText = score>=6?"XUẤT SẮC":score>=5?"GIỎI":score>=4?"KHÁ":score>=3?"ĐẠT":"CHƯA ĐẠT";
         document.getElementById('result-congrats').innerText = `Chúc mừng ${user.name}!`;
-        let hist = '<h3>Chi tiết bài làm:</h3>';
+
+        let hist = '<h3 style="font-size: 1.1rem; margin-top: 10px;">Hướng dẫn giải chi tiết:</h3>';
         currentQuestions.forEach((q, i) => {
-            hist += `<div class="history-item"><b>Câu ${i+1}:</b> ${q.question||q.context}<br>Giải thích: ${q.explanation || 'Xem hướng dẫn SGK.'}</div>`;
+            const userAns = userAnswers[i];
+            hist += `<div class="history-item">
+                <span class="history-item-q">Câu ${i+1}: ${q.question || q.context}</span>`;
+            
+            if(q.shuffledOptions) {
+                const corrTxt = q.shuffledOptions[q.shuffledCorrect].text;
+                const userTxt = userAns !== null ? q.shuffledOptions[userAns].text : "Bỏ trống";
+                hist += `Lựa chọn của bạn: <span class="${userAns===q.shuffledCorrect?'correct-ans':'wrong-ans'}">${userTxt}</span><br>
+                         Đáp án đúng: <span class="correct-ans">${corrTxt}</span>`;
+            } else if(q.shuffledStatements) {
+                q.shuffledStatements.forEach((s, si) => {
+                    const uVal = userAns ? userAns[si] : null;
+                    const uStr = uVal === null ? "..." : (uVal ? "Đúng" : "Sai");
+                    const cStr = s.originalVal ? "Đúng" : "Sai";
+                    hist += `<div style="font-size: 0.85rem; margin-top:5px;">- ${s.text}: <b>${uStr}</b> (Đáp án: <b>${cStr}</b>) ${uVal===s.originalVal?'✅':'❌'}</div>`;
+                });
+            } else {
+                hist += `Bạn nhập: <span class="${userAns?.toString().trim().toLowerCase()===q.answer.toLowerCase()?'correct-ans':'wrong-ans'}">${userAns || "Trống"}</span><br>
+                         Đáp án: <span class="correct-ans">${q.answer}</span>`;
+            }
+            hist += `<div class="explanation-box">${q.explanation}</div></div>`;
         });
         document.getElementById('result-history').innerHTML = hist;
+        if(window.MathJax) MathJax.typesetPromise();
     };
 
     const openAdminLogin = () => {
@@ -734,7 +742,7 @@
         if(document.getElementById('admin-password').value === 'admin123') {
             document.getElementById('modal-admin-login').style.display = 'none';
             showAdminScreen();
-        } else { alert('Sai mật khẩu!'); }
+        } else { alert('Mật khẩu sai!'); }
     };
 
     const showAdminScreen = async () => {
@@ -742,7 +750,7 @@
         document.getElementById('screen-admin').classList.add('active');
         document.getElementById('user-bar').style.display = 'none';
         const content = document.getElementById('admin-results-content');
-        content.innerHTML = '<p>Đang tải dữ liệu...</p>';
+        content.innerHTML = '<p>Đang tải...</p>';
         try {
             const querySnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'results'));
             let results = [];
@@ -750,17 +758,17 @@
             results.sort((a, b) => b.score - a.score);
             if(results.length === 0) {
                 content.innerHTML = '<p>Chưa có dữ liệu.</p>';
-                document.getElementById('admin-total-students').innerText = "Tổng số: 0";
+                document.getElementById('admin-total-students').innerText = "Tổng: 0";
                 return;
             }
-            document.getElementById('admin-total-students').innerText = `Tổng số: ${results.length}`;
-            let tableHtml = `<table class="admin-table"><thead><tr><th>Hạng</th><th>Họ Tên</th><th>Trường</th><th>SBD</th><th>Lớp</th><th>Điểm</th><th>Thời gian</th></tr></thead><tbody>`;
+            document.getElementById('admin-total-students').innerText = `Tổng: ${results.length}`;
+            let tableHtml = `<table class="admin-table"><thead><tr><th>Hạng</th><th>Họ Tên</th><th>Trường</th><th>SBD</th><th>Điểm</th><th>Thời gian</th></tr></thead><tbody>`;
             results.forEach((res, index) => {
                 const date = res.timestamp ? new Date(res.timestamp.seconds * 1000).toLocaleString('vi-VN', {hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit'}) : '...';
-                tableHtml += `<tr><td><span class="rank-badge">${index + 1}</span></td><td style="font-weight:bold;">${res.name}</td><td style="font-size:0.75rem;">${res.school || '...'}</td><td>${res.sbd}</td><td>${res.class}</td><td><span class="score-badge ${res.score>=5?'score-high':'score-low'}">${res.score.toFixed(1)}</span></td><td style="font-size:0.7rem;">${date}</td></tr>`;
+                tableHtml += `<tr><td><span class="rank-badge">${index + 1}</span></td><td><b>${res.name}</b></td><td style="font-size:0.7rem;">${res.school || ''}</td><td>${res.sbd}</td><td><span class="score-badge ${res.score>=5?'score-high':'score-low'}">${res.score.toFixed(1)}</span></td><td style="font-size:0.65rem;">${date}</td></tr>`;
             });
             content.innerHTML = tableHtml + '</tbody></table>';
-        } catch (e) { content.innerHTML = '<p>Lỗi truy xuất.</p>'; }
+        } catch (e) { content.innerHTML = '<p>Lỗi.</p>'; }
     };
 
     const showModal = (t, b) => {
@@ -775,7 +783,7 @@
     document.getElementById('btn-exam').onclick = () => startApp('exam');
     document.getElementById('btn-prev').onclick = prevQuestion;
     document.getElementById('btn-next').onclick = nextQuestion;
-    document.getElementById('btn-submit').onclick = () => confirm("Nộp bài?") && finishQuiz();
+    document.getElementById('btn-submit').onclick = () => confirm("Bạn muốn nộp bài?") && finishQuiz();
     document.getElementById('btn-close-modal').onclick = closeModal;
     document.getElementById('btn-open-admin').onclick = openAdminLogin;
     document.getElementById('btn-admin-login-confirm').onclick = checkAdminPassword;
